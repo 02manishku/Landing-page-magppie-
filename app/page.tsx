@@ -13,13 +13,18 @@ export default function HomePage() {
 
       {/* PROOF STRIP ─ thin trust ribbon ─────────────────── */}
       <section className="bg-ink text-bone border-t border-bone/10">
-        <div className="mx-auto max-w-[1600px] px-6 lg:px-10 py-5 grid grid-cols-2 md:grid-cols-5 gap-6 items-center">
-          {PROOF_ITEMS.map((p) => (
-            <div key={p.head} className="text-center">
-              <div className="font-display text-xl lg:text-2xl text-bone leading-none">
+        <div className="mx-auto max-w-[1600px] px-5 sm:px-6 lg:px-10 py-5 md:py-6 grid grid-cols-3 md:grid-cols-5 gap-x-4 gap-y-5 md:gap-6 items-center">
+          {PROOF_ITEMS.map((p, i) => (
+            <div
+              key={p.head}
+              className={`text-center ${
+                i === 3 ? 'col-start-1 md:col-start-auto' : ''
+              }`}
+            >
+              <div className="font-display text-base md:text-xl lg:text-2xl text-bone leading-none">
                 {p.head}
               </div>
-              <div className="mt-1.5 text-[10px] tracking-[0.22em] uppercase text-bone/50">
+              <div className="mt-1.5 text-[9px] md:text-[10px] tracking-[0.18em] md:tracking-[0.22em] uppercase text-bone/50 leading-tight">
                 {p.sub}
               </div>
             </div>
@@ -30,7 +35,7 @@ export default function HomePage() {
       {/* ═════════════════════════════════════════════════════ */}
       {/* PRODUCT SHOWCASE, three applications                 */}
       {/* ═════════════════════════════════════════════════════ */}
-      <section className="bg-bone py-20 lg:py-28">
+      <section className="bg-bone py-14 md:py-20 lg:py-24">
         <div className="mx-auto max-w-[1600px] px-6 lg:px-10">
           <div className="max-w-3xl mb-12 lg:mb-16">
             <div className="kicker text-smoke mb-4">One Wellness System</div>
@@ -71,7 +76,7 @@ export default function HomePage() {
       {/* ═════════════════════════════════════════════════════ */}
       {/* 1. WHY WELLNESS, the problem (softened)              */}
       {/* ═════════════════════════════════════════════════════ */}
-      <section id="why-wellness" className="bg-bone py-28 lg:py-36">
+      <section id="why-wellness" className="bg-bone py-16 md:py-24 lg:py-32">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
           <div className="max-w-3xl">
             <div className="kicker text-smoke mb-5">Why Wellness Matters</div>
@@ -88,7 +93,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="mt-16 grid md:grid-cols-3 gap-px bg-ink/10">
+          <div className="mt-10 md:mt-16 grid md:grid-cols-3 gap-px bg-ink/10">
             {CONCERNS.map((c, i) => (
               <div key={c.title} className="bg-bone flex flex-col">
                 <div className="relative aspect-[5/3] overflow-hidden bg-sand">
@@ -102,7 +107,7 @@ export default function HomePage() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent to-ink/15" />
                 </div>
-                <div className="p-8 lg:p-10 flex-1 flex flex-col">
+                <div className="p-6 md:p-8 lg:p-10 flex-1 flex flex-col">
                   <div className="font-display text-5xl text-ink/10 leading-none mb-2">
                     {String(i + 1).padStart(2, '0')}
                   </div>
@@ -130,7 +135,7 @@ export default function HomePage() {
       {/* ═════════════════════════════════════════════════════ */}
       {/* 2. SILVERSTONE, the solution                        */}
       {/* ═════════════════════════════════════════════════════ */}
-      <section id="silverstone" className="bg-ink text-bone py-28 lg:py-36 relative overflow-hidden">
+      <section id="silverstone" className="bg-ink text-bone py-16 md:py-24 lg:py-32 relative overflow-hidden">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-10 grid lg:grid-cols-12 gap-12 lg:gap-16 items-center relative z-10">
           <div className="lg:col-span-6 order-2 lg:order-1">
             <div className="kicker text-bone/50 mb-5">The Solution</div>
@@ -196,7 +201,7 @@ export default function HomePage() {
       {/* ═════════════════════════════════════════════════════ */}
       {/* 3. PROOF,7 lab-tested cards                        */}
       {/* ═════════════════════════════════════════════════════ */}
-      <section id="proof" className="bg-bone py-28 lg:py-36">
+      <section id="proof" className="bg-bone py-16 md:py-24 lg:py-32">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
           <div className="max-w-3xl">
             <div className="kicker text-smoke mb-5">Lab-tested, life-proven</div>
@@ -236,7 +241,7 @@ export default function HomePage() {
       {/* ═════════════════════════════════════════════════════ */}
       {/* 4. COMPARISON, Wood vs Stone                        */}
       {/* ═════════════════════════════════════════════════════ */}
-      <section className="bg-sand py-28 lg:py-36">
+      <section className="bg-sand py-16 md:py-24 lg:py-32">
         <div className="mx-auto max-w-[1200px] px-6 lg:px-10">
           <div className="max-w-2xl">
             <div className="kicker text-smoke mb-5">The Evidence</div>
@@ -247,7 +252,8 @@ export default function HomePage() {
             </h2>
           </div>
 
-          <div className="mt-14 bg-bone border hairline">
+          {/* DESKTOP TABLE (md and up) */}
+          <div className="mt-12 md:mt-14 hidden md:block bg-bone border hairline">
             <div className="grid grid-cols-[1.4fr_1fr_1fr] text-[11px] tracking-[0.22em] uppercase">
               <div className="p-5 lg:p-6 text-smoke border-b hairline">
                 Feature
@@ -274,6 +280,25 @@ export default function HomePage() {
                 </div>
                 <div className="p-5 lg:p-6 text-sm text-ink font-medium bg-bone">
                   {r.good}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* MOBILE STACK (below md) — card per row */}
+          <div className="mt-12 md:hidden flex flex-col gap-3">
+            {COMPARE_ROWS.map((r) => (
+              <div key={r.feature} className="bg-bone border hairline">
+                <div className="px-5 py-3 border-b hairline kicker text-smoke text-[10px]">
+                  {r.feature}
+                </div>
+                <div className="px-5 py-4 border-b hairline">
+                  <div className="kicker text-ink/40 text-[9px] mb-1.5">Wood</div>
+                  <div className="text-sm text-ink/60 leading-snug">{r.bad}</div>
+                </div>
+                <div className="px-5 py-4 bg-ink/[0.02]">
+                  <div className="kicker text-ink text-[9px] mb-1.5">Silverstone™</div>
+                  <div className="text-sm text-ink font-medium leading-snug">{r.good}</div>
                 </div>
               </div>
             ))}
@@ -310,12 +335,12 @@ export default function HomePage() {
       {/* ═════════════════════════════════════════════════════ */}
       <section
         id="guarantee"
-        className="relative bg-ink text-bone py-28 lg:py-36 overflow-hidden"
+        className="relative bg-ink text-bone py-16 md:py-24 lg:py-32 overflow-hidden"
       >
-        {/* big ghost numeral */}
+        {/* big ghost numeral — desktop only */}
         <div
           aria-hidden
-          className="absolute right-0 lg:right-10 top-1/2 -translate-y-1/2 font-display text-[22rem] lg:text-[30rem] text-bone/[0.025] leading-none pointer-events-none select-none"
+          className="hidden md:block absolute right-0 lg:right-10 top-1/2 -translate-y-1/2 font-display text-[18rem] lg:text-[30rem] text-bone/[0.025] leading-none pointer-events-none select-none"
         >
           25
         </div>
@@ -365,7 +390,7 @@ export default function HomePage() {
       {/* ═════════════════════════════════════════════════════ */}
       {/* 6. CLIENTS, distinguished homes grid                */}
       {/* ═════════════════════════════════════════════════════ */}
-      <section id="clients" className="bg-bone py-28 lg:py-36">
+      <section id="clients" className="bg-bone py-16 md:py-24 lg:py-32">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
           <div className="max-w-3xl">
             <div className="kicker text-smoke mb-5">Distinguished Homes</div>
@@ -376,7 +401,7 @@ export default function HomePage() {
             </h2>
           </div>
 
-          <div className="mt-14 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-px bg-ink/10">
+          <div className="mt-10 md:mt-14 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-px bg-ink/10">
             {CELEBRITIES.map((c) => (
               <figure
                 key={c.name}
@@ -429,7 +454,7 @@ export default function HomePage() {
       {/* ═════════════════════════════════════════════════════ */}
       {/* 7. TESTIMONIAL, Stacy McCarthy                      */}
       {/* ═════════════════════════════════════════════════════ */}
-      <section className="bg-sand py-28 lg:py-36">
+      <section className="bg-sand py-16 md:py-24 lg:py-32">
         <div className="mx-auto max-w-[1000px] px-6 lg:px-10 text-center">
           <div className="kicker text-smoke mb-8">From a Global Peer</div>
           <blockquote className="font-display text-2xl md:text-3xl lg:text-4xl leading-[1.2] text-ink italic">
@@ -464,7 +489,7 @@ export default function HomePage() {
       {/* ═════════════════════════════════════════════════════ */}
       {/* 8. AWARDS                                            */}
       {/* ═════════════════════════════════════════════════════ */}
-      <section id="awards" className="bg-bone py-24 lg:py-28">
+      <section id="awards" className="bg-bone py-16 md:py-20 lg:py-28">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
           <div className="max-w-3xl">
             <div className="kicker text-smoke mb-5">Global Recognition</div>
@@ -502,7 +527,7 @@ export default function HomePage() {
       {/* ═════════════════════════════════════════════════════ */}
       {/* 9. PROCESS,4 steps                                 */}
       {/* ═════════════════════════════════════════════════════ */}
-      <section id="process" className="bg-sand py-28 lg:py-36">
+      <section id="process" className="bg-sand py-16 md:py-24 lg:py-32">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
           <div className="max-w-3xl">
             <div className="kicker text-smoke mb-5">The Process</div>
@@ -513,13 +538,13 @@ export default function HomePage() {
             </h2>
           </div>
 
-          <div className="mt-16 grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-ink/10">
+          <div className="mt-10 md:mt-16 grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-ink/10">
             {STEPS.map((s, i) => (
-              <div key={s.title} className="bg-bone p-10 flex flex-col">
-                <div className="font-display text-5xl text-ink/15 leading-none">
+              <div key={s.title} className="bg-bone p-7 md:p-10 flex flex-col">
+                <div className="font-display text-4xl md:text-5xl text-ink/15 leading-none">
                   {String(i + 1).padStart(2, '0')}
                 </div>
-                <h3 className="font-display text-2xl lg:text-3xl text-ink mt-8 mb-4 leading-tight">
+                <h3 className="font-display text-xl md:text-2xl lg:text-3xl text-ink mt-6 md:mt-8 mb-3 md:mb-4 leading-tight">
                   {s.title}
                 </h3>
                 <p className="text-sm text-ink/65 leading-relaxed">{s.copy}</p>
@@ -534,7 +559,7 @@ export default function HomePage() {
       {/* ═════════════════════════════════════════════════════ */}
       <section
         id="book"
-        className="relative bg-ink text-bone py-28 lg:py-40 overflow-hidden"
+        className="relative bg-ink text-bone py-16 md:py-24 lg:py-32 overflow-hidden"
       >
         {/* subtle backdrop */}
         <div className="absolute inset-0 opacity-40">

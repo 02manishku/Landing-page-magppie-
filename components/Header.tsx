@@ -43,7 +43,7 @@ export default function Header() {
               height={onLight ? 145 : 36}
               priority
               className={`w-auto transition-all duration-300 ${
-                onLight ? 'h-14 lg:h-16' : 'h-7 lg:h-8'
+                onLight ? 'h-10 lg:h-16' : 'h-6 lg:h-8'
               }`}
             />
           </Link>
@@ -80,7 +80,7 @@ export default function Header() {
               </div>
             )}
             <Link
-              href="#book"
+              href="#lead-form"
               className={`kicker px-5 py-3 transition-colors ${
                 onLight
                   ? 'bg-ink text-bone hover:bg-smoke'
@@ -91,15 +91,30 @@ export default function Header() {
             </Link>
           </div>
 
-          <button
-            aria-label="Open menu"
-            onClick={() => setOpen(!open)}
-            className="lg:hidden p-2 -mr-2"
-          >
-            <div className={`w-6 h-px mb-1.5 ${onLight ? 'bg-ink' : 'bg-bone'}`} />
-            <div className={`w-6 h-px mb-1.5 ${onLight ? 'bg-ink' : 'bg-bone'}`} />
-            <div className={`w-4 h-px ml-auto ${onLight ? 'bg-ink' : 'bg-bone'}`} />
-          </button>
+          <div className="lg:hidden flex items-center gap-3">
+            <Link
+              href="#lead-form"
+              className={`kicker text-[10px] tracking-[0.2em] px-3.5 py-2.5 transition-colors ${
+                onLight
+                  ? 'bg-ink text-bone hover:bg-smoke'
+                  : 'bg-bone text-ink hover:bg-sand'
+              }`}
+            >
+              Book
+            </Link>
+            <button
+              type="button"
+              aria-label={open ? 'Close menu' : 'Open menu'}
+              aria-expanded={open}
+              onClick={() => setOpen(!open)}
+              style={{ touchAction: 'manipulation' }}
+              className="relative z-[51] w-11 h-11 flex flex-col items-center justify-center gap-[6px] cursor-pointer"
+            >
+              <span className={`block w-6 h-[2px] transition-transform origin-center ${onLight ? 'bg-ink' : 'bg-bone'} ${open ? 'translate-y-[8px] rotate-45' : ''}`} />
+              <span className={`block w-6 h-[2px] transition-opacity ${onLight ? 'bg-ink' : 'bg-bone'} ${open ? 'opacity-0' : ''}`} />
+              <span className={`block w-6 h-[2px] transition-transform origin-center ${onLight ? 'bg-ink' : 'bg-bone'} ${open ? '-translate-y-[8px] -rotate-45' : ''}`} />
+            </button>
+          </div>
         </div>
       </div>
 
@@ -117,7 +132,7 @@ export default function Header() {
               </Link>
             ))}
             <Link
-              href="#book"
+              href="#lead-form"
               className="block kicker bg-ink text-bone px-5 py-3 mt-4 text-center"
               onClick={() => setOpen(false)}
             >

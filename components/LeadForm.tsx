@@ -22,8 +22,8 @@ export default function LeadForm({
 
   const isDark = variant === 'dark';
   const inputBase = isDark
-    ? 'w-full bg-transparent border-b border-bone/25 focus:border-bone outline-none py-2.5 text-bone placeholder-bone/40 text-sm'
-    : 'w-full bg-transparent border-b hairline focus:border-ink outline-none py-2.5 text-ink placeholder-ink/30 text-sm';
+    ? 'w-full bg-transparent border-b border-bone/25 focus:border-bone outline-none py-3 text-bone placeholder-bone/40 text-sm'
+    : 'w-full bg-transparent border-b hairline focus:border-ink outline-none py-3 text-ink placeholder-ink/30 text-sm';
   const labelBase = isDark ? 'kicker text-bone/60' : 'kicker text-smoke';
   const helperBase = isDark ? 'text-bone/50' : 'text-ink/60';
   const submitBase = isDark
@@ -52,7 +52,7 @@ export default function LeadForm({
     <form onSubmit={onSubmit} className={compact ? 'space-y-4' : 'space-y-5'}>
       <div className="grid sm:grid-cols-2 gap-5">
         <Field label="Full name" name="name" required baseCls={inputBase} labelCls={labelBase} />
-        <Field label="Phone" name="phone" type="tel" required baseCls={inputBase} labelCls={labelBase} />
+        <PhoneField baseCls={inputBase} labelCls={labelBase} />
       </div>
 
       <Field label="Email" name="email" type="email" baseCls={inputBase} labelCls={labelBase} />
@@ -128,6 +128,40 @@ function Field({
         {required && <span className="opacity-70"> *</span>}
       </span>
       <input name={name} type={type} required={required} className={baseCls} />
+    </label>
+  );
+}
+
+function PhoneField({
+  baseCls,
+  labelCls
+}: {
+  baseCls: string;
+  labelCls: string;
+}) {
+  const [value, setValue] = useState('');
+
+  return (
+    <label className="block">
+      <span className={`${labelCls} mb-2 block`}>
+        Phone
+        <span className="opacity-70"> *</span>
+      </span>
+      <input
+        name="phone"
+        type="tel"
+        required
+        value={value}
+        onChange={(e) => setValue(e.target.value.replace(/\D/g, '').slice(0, 10))}
+        inputMode="numeric"
+        autoComplete="tel-national"
+        pattern="[0-9]{10}"
+        minLength={10}
+        maxLength={10}
+        placeholder="10-digit mobile number"
+        title="Please enter your 10-digit phone number"
+        className={baseCls}
+      />
     </label>
   );
 }

@@ -24,7 +24,7 @@ export default function HeroVideo() {
         muted
         loop
         playsInline
-        preload="auto"
+        preload="metadata"
         poster="/images/hero.jpg"
         className="absolute inset-0 w-full h-full object-cover"
       >
@@ -38,18 +38,18 @@ export default function HeroVideo() {
 
       {/* content grid */}
       <div className="relative z-10 min-h-[100dvh] flex items-center">
-        <div className="mx-auto max-w-[1600px] w-full px-6 lg:px-10 pt-28 pb-20 lg:pt-32 lg:pb-24 grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-          {/* LEFT, copy */}
-          <div className="lg:col-span-7 max-w-[640px]">
-            <div className="kicker text-bone/80 mb-5 fade-up">
+        <div className="mx-auto max-w-[1600px] w-full px-5 sm:px-6 lg:px-10 pt-24 pb-14 md:pt-28 md:pb-20 lg:pt-32 lg:pb-24 grid lg:grid-cols-12 gap-8 lg:gap-16 items-center">
+          {/* LEFT on desktop / BELOW form on mobile — copy */}
+          <div className="lg:col-span-7 max-w-[640px] order-2 lg:order-1">
+            <div className="kicker text-bone/80 mb-4 lg:mb-5 fade-up text-[10px] md:text-[11px]">
               Introducing the World&rsquo;s First Wellness Kitchen
             </div>
-            <h1 className="font-display text-bone leading-[0.98] text-[9vw] md:text-[5.5vw] lg:text-[4.4vw] fade-up delay-1 drop-shadow-[0_2px_24px_rgba(0,0,0,0.35)]">
+            <h1 className="font-display text-bone leading-[1] md:leading-[0.98] text-[40px] sm:text-[48px] md:text-[5.5vw] lg:text-[4.4vw] fade-up delay-1 drop-shadow-[0_2px_24px_rgba(0,0,0,0.35)]">
               Kitchens built in stone.<br />
               For a lifetime of
               <em className="not-italic italic font-light"> wellness.</em>
             </h1>
-            <p className="mt-6 lg:mt-8 text-bone/80 max-w-xl text-base lg:text-lg leading-relaxed fade-up delay-2">
+            <p className="mt-5 md:mt-6 lg:mt-8 text-bone/80 max-w-xl text-[15px] md:text-base lg:text-lg leading-relaxed fade-up delay-2">
               Conventional wood-based kitchens quietly release formaldehyde,
               warp with moisture and invite termites. Magppie is built entirely
               in patented anti-bacterial Silverstone™, safer for your family,
@@ -57,8 +57,8 @@ export default function HeroVideo() {
             </p>
 
             {/* inline trust row */}
-            <div className="mt-8 lg:mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 fade-up delay-3">
-              <div className="kicker text-bone/60">Trusted by</div>
+            <div className="mt-6 md:mt-8 lg:mt-10 flex flex-wrap items-center gap-x-4 gap-y-2 md:gap-x-6 md:gap-y-3 fade-up delay-3">
+              <div className="kicker text-bone/60 text-[10px] md:text-[11px]">Trusted by</div>
               {[
                 'Mukesh Ambani',
                 'MS Dhoni',
@@ -68,7 +68,7 @@ export default function HeroVideo() {
               ].map((n) => (
                 <span
                   key={n}
-                  className="text-[11px] tracking-[0.22em] uppercase font-medium text-bone/70 border border-bone/20 px-3 py-1.5"
+                  className="text-[9px] md:text-[11px] tracking-[0.18em] md:tracking-[0.22em] uppercase font-medium text-bone/70 border border-bone/20 px-2.5 py-1 md:px-3 md:py-1.5"
                 >
                   {n}
                 </span>
@@ -76,25 +76,25 @@ export default function HeroVideo() {
             </div>
           </div>
 
-          {/* RIGHT, lead-capture card */}
-          <div className="lg:col-span-5 fade-up delay-2">
+          {/* RIGHT on desktop / FIRST on mobile — lead-capture card */}
+          <div id="lead-form" className="lg:col-span-5 fade-up delay-2 w-full scroll-mt-24 md:scroll-mt-28 order-1 lg:order-2">
             <div className="bg-bone border hairline shadow-[0_20px_60px_rgba(0,0,0,0.3)]">
-              <div className="px-7 lg:px-9 pt-8 pb-3">
+              <div className="px-5 sm:px-7 lg:px-9 pt-7 md:pt-8 pb-3">
                 <div className="kicker text-smoke mb-3">Private Enquiry</div>
-                <h2 className="font-display text-ink text-3xl lg:text-[2.1rem] leading-[1.1]">
+                <h2 className="font-display text-ink text-[26px] sm:text-3xl lg:text-[2.1rem] leading-[1.1]">
                   Book a Free<br />
                   Consultation.
                 </h2>
-                <p className="mt-3 text-sm text-ink/60 leading-relaxed">
+                <p className="mt-3 text-[13px] md:text-sm text-ink/60 leading-relaxed">
                   Share a few details. A Magppie advisor will respond within
                   24 hours with a 3D design and transparent pricing. No obligation.
                 </p>
               </div>
-              <div className="px-7 lg:px-9 pb-8">
+              <div className="px-5 sm:px-7 lg:px-9 pb-7 md:pb-8">
                 <LeadForm variant="light" compact submitLabel="Book my consultation" />
               </div>
             </div>
-            <p className="mt-5 text-[11px] tracking-[0.2em] uppercase text-bone/55 text-center lg:text-right">
+            <p className="mt-4 md:mt-5 text-[10px] md:text-[11px] tracking-[0.18em] md:tracking-[0.2em] uppercase text-bone/55 text-center lg:text-right">
               Starting from ₹8,400 / sq. ft. &nbsp;·&nbsp; USD 200 / sq. ft.
             </p>
           </div>
