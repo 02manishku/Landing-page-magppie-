@@ -3,6 +3,7 @@ import './globals.css';
 import { Inter, Cormorant_Garamond } from 'next/font/google';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import TopBar from '@/components/TopBar';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -12,20 +13,20 @@ const inter = Inter({
 
 const display = Cormorant_Garamond({
   subsets: ['latin'],
-  weight: ['300', '400', '500'],
+  weight: ['300', '400', '500', '600'],
   variable: '--font-display',
   display: 'swap'
 });
 
 export const metadata: Metadata = {
-  title: 'Magppie — The World’s First Wellness Kitchen',
+  title: 'Magppie:Wellness Kitchens built in patented Silverstone™',
   description:
-    'Magppie is the world’s first Wellness Kitchen and Wardrobe brand, fully built in patented anti-bacterial Silverstone™. Safe, hygienic, luxurious — for people and planet.',
+    'The world’s first 100% stone Wellness Kitchen. Zero formaldehyde, zero termites, zero mould. 25-year unconditional guarantee. Book a free consultation.',
   metadataBase: new URL('https://www.magppie.com'),
   openGraph: {
-    title: 'Magppie — Wellness Kitchens & Wardrobes',
+    title: 'Magppie:Wellness Kitchens built in Silverstone™',
     description:
-      'World’s first Wellness Kitchen, fully built in patented anti-bacterial Silverstone™.',
+      'The world’s first 100% stone Wellness Kitchen. 25-year unconditional guarantee. Book a free consultation.',
     images: ['/images/hero.jpg']
   }
 };
@@ -38,6 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${display.variable}`}>
       <body>
+        <TopBar />
         <Header />
         <main>{children}</main>
         <Footer />

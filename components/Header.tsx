@@ -5,41 +5,16 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 const NAV = [
-  {
-    label: 'Kitchens',
-    href: '/kitchens',
-    sub: [
-      { label: 'Wellness Kitchen', href: '/kitchens#wellness' },
-      { label: 'Outdoor Kitchen', href: '/kitchens#outdoor' },
-      { label: 'Patented Lighting', href: '/kitchens#lighting' },
-      { label: '23 Accessories', href: '/kitchens#accessories' }
-    ]
-  },
-  {
-    label: 'Wardrobes',
-    href: '/wardrobes',
-    sub: [
-      { label: 'Wellness Wardrobe', href: '/wardrobes#wellness' },
-      { label: '13 Accessories', href: '/wardrobes#accessories' }
-    ]
-  },
-  {
-    label: 'Vanities',
-    href: '/vanities',
-    sub: [
-      { label: 'Wellness Vanity', href: '/vanities#wellness' },
-      { label: 'Stone Finishes', href: '/vanities#finishes' }
-    ]
-  },
-  { label: 'Company', href: '/about' },
-  { label: 'Catalogs', href: '/catalogs' },
-  { label: 'News', href: '/news' }
+  { label: 'Why Wellness', href: '#why-wellness' },
+  { label: 'Silverstone™', href: '#silverstone' },
+  { label: 'Proof', href: '#proof' },
+  { label: 'Guarantee', href: '#guarantee' },
+  { label: 'Process', href: '#process' }
 ];
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [hovered, setHovered] = useState<string | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -48,24 +23,19 @@ export default function Header() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // While at the top of any page, every page begins with a dark/visual hero —
-  // so the header text needs to be light. After scroll, switch to the bone bar.
   const onLight = scrolled || open;
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 md:top-9 left-0 right-0 z-50 transition-all duration-500 ${
         onLight
           ? 'bg-bone/95 backdrop-blur border-b hairline'
-          : 'bg-gradient-to-b from-ink/40 to-transparent'
+          : 'bg-gradient-to-b from-ink/60 to-ink/0'
       }`}
     >
       <div className="mx-auto max-w-[1600px] px-6 lg:px-10">
         <div className="flex items-center justify-between h-16 lg:h-20">
-          <Link href="/" className="flex items-center" aria-label="Magppie home">
-            {/* Two logos, swapped by scroll state.
-                Black PNG (1267x655) has the ® mark stacked, so it needs ~2x
-                the height of the white SVG (1080x246) to match visually. */}
+          <Link href="#top" className="flex items-center" aria-label="Magppie home">
             <Image
               src={onLight ? '/logos/magppie-black.png' : '/logos/magppie-white.svg'}
               alt="Magppie"
@@ -78,57 +48,47 @@ export default function Header() {
             />
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-10">
+          <nav className="hidden lg:flex items-center gap-9">
             {NAV.map((item) => (
-              <div
+              <Link
                 key={item.label}
-                className="relative"
-                onMouseEnter={() => setHovered(item.label)}
-                onMouseLeave={() => setHovered(null)}
+                href={item.href}
+                className={`kicker hover-underline transition-colors ${
+                  onLight ? 'text-ink' : 'text-bone drop-shadow-sm'
+                }`}
               >
-                <Link
-                  href={item.href}
-                  className={`kicker hover-underline transition-colors ${
-                    onLight ? 'text-ink' : 'text-bone drop-shadow-sm'
-                  }`}
-                >
-                  {item.label}
-                </Link>
-                {item.sub && hovered === item.label && (
-                  <div className="absolute top-full left-0 pt-6">
-                    <div className="bg-bone border hairline shadow-sm min-w-[240px] py-3">
-                      {item.sub.map((s) => (
-                        <Link
-                          key={s.href}
-                          href={s.href}
-                          className="block px-5 py-2 text-sm text-ink/80 hover:text-ink hover:bg-sand/40 transition-colors"
-                        >
-                          {s.label}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
+                {item.label}
+              </Link>
             ))}
           </nav>
 
-          <div className="hidden lg:flex items-center gap-6">
+          <div className="hidden lg:flex items-center gap-5">
+            {/* trust pills, only visible after scroll on light bar */}
+            {onLight && (
+              <div className="hidden xl:flex items-center gap-4 mr-2">
+                <span className="text-[10px] tracking-[0.2em] uppercase text-smoke">
+                  KBIS 2026
+                </span>
+                <span className="w-px h-3 bg-ink/15" />
+                <span className="text-[10px] tracking-[0.2em] uppercase text-smoke">
+                  Red Dot × 5
+                </span>
+                <span className="w-px h-3 bg-ink/15" />
+                <span className="text-[10px] tracking-[0.2em] uppercase text-smoke">
+                  25-Yr Guarantee
+                </span>
+              </div>
+            )}
             <Link
-              href="/contact"
-              className={`kicker hover-underline transition-colors ${
-                onLight ? 'text-ink' : 'text-bone'
+              href="#book"
+              className={`kicker px-5 py-3 transition-colors ${
+                onLight
+                  ? 'bg-ink text-bone hover:bg-smoke'
+                  : 'bg-bone text-ink hover:bg-sand'
               }`}
             >
-              Contact
+              Book consultation →
             </Link>
-            <span
-              className={`kicker transition-colors ${
-                onLight ? 'text-ink/40' : 'text-bone/60'
-              }`}
-            >
-              EN
-            </span>
           </div>
 
           <button
@@ -157,11 +117,11 @@ export default function Header() {
               </Link>
             ))}
             <Link
-              href="/contact"
-              className="block kicker text-ink"
+              href="#book"
+              className="block kicker bg-ink text-bone px-5 py-3 mt-4 text-center"
               onClick={() => setOpen(false)}
             >
-              Contact
+              Book consultation →
             </Link>
           </div>
         </div>

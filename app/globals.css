@@ -7,6 +7,17 @@
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 64px;
+}
+@media (min-width: 768px) {
+  html { scroll-padding-top: 100px; }
+}
+@media (min-width: 1024px) {
+  html { scroll-padding-top: 116px; }
+}
+
 html, body {
   background: #F4F1EA;
   color: #1B1B1B;
@@ -60,12 +71,3 @@ html, body {
   transition: transform 1.2s cubic-bezier(0.2, 0.6, 0.2, 1);
 }
 .group:hover .tile-img { transform: scale(1.06); }
-
-/* Marquee */
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-.marquee-track {
-  animation: marquee 50s linear infinite;
-}

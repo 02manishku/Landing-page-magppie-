@@ -1,314 +1,800 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import HeroVideo from '@/components/HeroVideo';
-import CustomersMarquee from '@/components/CustomersMarquee';
+import LeadForm from '@/components/LeadForm';
 
 export default function HomePage() {
   return (
     <>
-      {/* HERO ─────────────────────────────────────────────── */}
+      {/* ═════════════════════════════════════════════════════ */}
+      {/* HERO, with inline lead form                         */}
+      {/* ═════════════════════════════════════════════════════ */}
       <HeroVideo />
 
-      {/* INTRO STATEMENT ──────────────────────────────────── */}
-      <section className="bg-bone py-28 lg:py-40">
-        <div className="mx-auto max-w-[1400px] px-6 lg:px-10 grid lg:grid-cols-12 gap-10">
-          <div className="lg:col-span-4">
-            <div className="kicker text-smoke">A Wellness Movement</div>
-          </div>
-          <div className="lg:col-span-8">
-            <h2 className="font-display text-4xl md:text-6xl lg:text-7xl leading-[1.05] text-ink">
-              The world needs a new kitchen — one that
-              <em className="not-italic text-smoke"> nurtures </em>
-              the people who live in it.
-            </h2>
-            <p className="mt-10 text-lg text-ink/70 max-w-2xl leading-relaxed">
-              Every day, our food, air and homes are filled with unseen threats
-              to our well-being. From the cabinets we cook in to the wardrobes
-              we breathe near — the spaces that should nurture us are working
-              against us. Magppie is not just a brand; it is a wellness movement,
-              bringing deep impact through deep tech.
-            </p>
-            <Link
-              href="/about"
-              className="inline-block mt-10 kicker hover-underline"
-            >
-              Discover the movement →
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* THREE TILES ──────────────────────────────────────── */}
-      <section className="bg-bone pb-20">
-        <div className="mx-auto max-w-[1600px] px-6 lg:px-10 grid md:grid-cols-3 gap-2">
-          <Tile
-            href="/kitchens"
-            kicker="01 — Wellness"
-            title="Kitchens"
-            image="/images/22.jpg"
-          />
-          <Tile
-            href="/wardrobes"
-            kicker="02 — Wellness"
-            title="Wardrobes"
-            image="/images/wardrobes/concept-1.webp"
-          />
-          <Tile
-            href="/vanities"
-            kicker="03 — Wellness"
-            title="Vanities"
-            image="/images/vanities/onyx-gold-overmount.webp"
-          />
-        </div>
-      </section>
-
-      {/* SILVERSTONE FEATURE ──────────────────────────────── */}
-      <section className="bg-sand py-28 lg:py-40">
-        <div className="mx-auto max-w-[1400px] px-6 lg:px-10 grid lg:grid-cols-12 gap-10 items-center">
-          <div className="lg:col-span-5 order-2 lg:order-1">
-            <div className="kicker text-smoke mb-6">Silverstone™ Revolution</div>
-            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl leading-tight text-ink">
-              Silver infused inside the stone, by nano technology.
-            </h2>
-            <p className="mt-8 text-ink/70 leading-relaxed">
-              Conventional wood-based kitchens are breeding grounds for
-              termites, bacteria and fungi — and silently leak formaldehyde
-              into our food and air. So we abandoned wood entirely. The result
-              is Silverstone™: a certified, 100% bacteria-safe technical stone
-              built from the antibacterial power of pure silver.
-            </p>
-            <Link
-              href="/materials"
-              className="inline-block mt-10 kicker hover-underline"
-            >
-              Explore Silverstone™ →
-            </Link>
-          </div>
-          <div className="lg:col-span-7 order-1 lg:order-2">
-            <div className="relative aspect-[4/3] overflow-hidden">
-              <Image
-                src="/images/01-copy.jpg"
-                alt="Silverstone island in Magppie Wellness Kitchen"
-                fill
-                quality={95}
-                sizes="(min-width: 1024px) 60vw, 100vw"
-                className="object-cover"
-              />
+      {/* PROOF STRIP ─ thin trust ribbon ─────────────────── */}
+      <section className="bg-ink text-bone border-t border-bone/10">
+        <div className="mx-auto max-w-[1600px] px-6 lg:px-10 py-5 grid grid-cols-2 md:grid-cols-5 gap-6 items-center">
+          {PROOF_ITEMS.map((p) => (
+            <div key={p.head} className="text-center">
+              <div className="font-display text-xl lg:text-2xl text-bone leading-none">
+                {p.head}
+              </div>
+              <div className="mt-1.5 text-[10px] tracking-[0.22em] uppercase text-bone/50">
+                {p.sub}
+              </div>
             </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ═════════════════════════════════════════════════════ */}
+      {/* PRODUCT SHOWCASE, three applications                 */}
+      {/* ═════════════════════════════════════════════════════ */}
+      <section className="bg-bone py-20 lg:py-28">
+        <div className="mx-auto max-w-[1600px] px-6 lg:px-10">
+          <div className="max-w-3xl mb-12 lg:mb-16">
+            <div className="kicker text-smoke mb-4">One Wellness System</div>
+            <h2 className="font-display text-3xl md:text-4xl lg:text-5xl leading-[1.05] text-ink">
+              Three applications.
+              <em className="not-italic text-smoke"> Built entirely in stone.</em>
+            </h2>
+          </div>
+          <div className="grid md:grid-cols-3 gap-2">
+            {PRODUCTS.map((p) => (
+              <figure key={p.title} className="group relative overflow-hidden bg-ink">
+                <div className="relative aspect-[4/5]">
+                  <Image
+                    src={p.image}
+                    alt={p.title}
+                    fill
+                    quality={95}
+                    sizes="(min-width: 1600px) 520px, (min-width: 768px) 33vw, 100vw"
+                    className="object-cover tile-img opacity-95 group-hover:opacity-100"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-ink/75 via-ink/10 to-transparent" />
+                </div>
+                <figcaption className="absolute bottom-0 left-0 right-0 p-7 lg:p-9 text-bone">
+                  <div className="kicker text-bone/80 mb-3">{p.kicker}</div>
+                  <div className="font-display text-3xl lg:text-4xl leading-none">
+                    {p.title}
+                  </div>
+                  <div className="text-[13px] text-bone/75 mt-3 leading-relaxed max-w-xs">
+                    {p.copy}
+                  </div>
+                </figcaption>
+              </figure>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* BENEFITS GRID ────────────────────────────────────── */}
-      <section className="bg-bone py-28 lg:py-32">
+      {/* ═════════════════════════════════════════════════════ */}
+      {/* 1. WHY WELLNESS, the problem (softened)              */}
+      {/* ═════════════════════════════════════════════════════ */}
+      <section id="why-wellness" className="bg-bone py-28 lg:py-36">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
-          <div className="kicker text-smoke mb-4">The Wellness Promise</div>
-          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl leading-tight text-ink max-w-3xl">
-            Built in stone. Guaranteed for 25 years. Serviced for 25 years.
-          </h2>
-          <div className="mt-16 grid sm:grid-cols-2 lg:grid-cols-5 gap-px bg-ink/10">
-            {BENEFITS.map((b) => (
-              <div key={b.kicker} className="bg-bone p-8">
-                <div className="kicker text-smoke mb-4">{b.kicker}</div>
-                <ul className="space-y-2 text-ink">
-                  {b.items.map((i) => (
-                    <li key={i} className="text-sm leading-relaxed">{i}</li>
-                  ))}
-                </ul>
+          <div className="max-w-3xl">
+            <div className="kicker text-smoke mb-5">Why Wellness Matters</div>
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.05] text-ink">
+              What quietly happens inside a
+              <em className="not-italic text-smoke"> conventional </em>
+              kitchen.
+            </h2>
+            <p className="mt-8 text-lg text-ink/70 leading-relaxed">
+              Most modular kitchens are built in compressed wood, MDF, plywood,
+              particle board. The science on what those materials do to the air
+              we breathe and the food we prepare is now clear. We believe
+              families deserve to know.
+            </p>
+          </div>
+
+          <div className="mt-16 grid md:grid-cols-3 gap-px bg-ink/10">
+            {CONCERNS.map((c, i) => (
+              <div key={c.title} className="bg-bone flex flex-col">
+                <div className="relative aspect-[5/3] overflow-hidden bg-sand">
+                  <Image
+                    src={c.image}
+                    alt={c.title}
+                    fill
+                    quality={92}
+                    sizes="(min-width: 1400px) 460px, (min-width: 768px) 33vw, 100vw"
+                    className="object-cover tile-img"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-ink/15" />
+                </div>
+                <div className="p-8 lg:p-10 flex-1 flex flex-col">
+                  <div className="font-display text-5xl text-ink/10 leading-none mb-2">
+                    {String(i + 1).padStart(2, '0')}
+                  </div>
+                  <h3 className="font-display text-2xl lg:text-3xl text-ink mb-4 leading-tight">
+                    {c.title}
+                  </h3>
+                  <p className="text-sm text-ink/70 leading-relaxed flex-1">{c.body}</p>
+                  <div className="mt-6 pt-5 border-t hairline flex flex-col gap-2 text-[11px] tracking-[0.12em] uppercase">
+                    <div className="flex items-center gap-3">
+                      <span className="w-3 h-px bg-ink/30" />
+                      <span className="text-ink/50">Wood, {c.bad}</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="w-3 h-px bg-ink" />
+                      <span className="text-ink">Silverstone™, {c.good}</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* OUTDOOR KITCHEN BANNER ───────────────────────────── */}
-      <section className="relative h-[80vh] overflow-hidden">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="none"
-          poster="/images/02.jpg"
-          className="absolute inset-0 w-full h-full object-cover"
-        >
-          <source src="/videos/pool-area-1.webm" type="video/webm" />
-          <source src="/videos/pool-area-1.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-ink/10 to-transparent" />
-        <div className="absolute inset-0 flex items-end">
-          <div className="mx-auto max-w-[1600px] px-6 lg:px-10 pb-20 w-full">
-            <div className="kicker text-bone/80 mb-6">Concept</div>
-            <h2 className="font-display text-5xl md:text-7xl lg:text-8xl text-bone leading-none max-w-4xl">
-              The Outdoor Kitchen.
+      {/* ═════════════════════════════════════════════════════ */}
+      {/* 2. SILVERSTONE, the solution                        */}
+      {/* ═════════════════════════════════════════════════════ */}
+      <section id="silverstone" className="bg-ink text-bone py-28 lg:py-36 relative overflow-hidden">
+        <div className="mx-auto max-w-[1400px] px-6 lg:px-10 grid lg:grid-cols-12 gap-12 lg:gap-16 items-center relative z-10">
+          <div className="lg:col-span-6 order-2 lg:order-1">
+            <div className="kicker text-bone/50 mb-5">The Solution</div>
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.05] text-bone">
+              Meet <em className="not-italic italic text-bone/80">Silverstone™</em>, the world&rsquo;s only antibacterial stone.
             </h2>
-            <Link
-              href="/kitchens#outdoor"
-              className="inline-block mt-10 kicker text-bone hover-underline"
-            >
-              Experience the concept →
-            </Link>
+            <p className="mt-8 text-bone/65 leading-relaxed max-w-xl">
+              Magppie&rsquo;s patented material is a 100% food-grade technical
+              stone fused with silver and copper nanoparticles. So hygienic you
+              can eat directly from it. The protection is permanent, engineered
+              into the stone itself, never washed or worn away.
+            </p>
+
+            <ul className="mt-10 divide-y divide-bone/10 border-t border-b border-bone/10">
+              {PROPERTIES.map((p) => (
+                <li key={p.title} className="py-5 flex items-start gap-5">
+                  <div className="font-display text-xl text-bone/50 w-10 flex-shrink-0 pt-1">
+                    {p.sym}
+                  </div>
+                  <div>
+                    <div className="text-bone font-medium text-[15px] mb-1">
+                      {p.title}
+                    </div>
+                    <div className="text-sm text-bone/55 leading-relaxed">
+                      {p.copy}
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
-        </div>
-      </section>
 
-      {/* CUSTOMERS MARQUEE ───────────────────────────────── */}
-      <section className="bg-ink text-bone py-24">
-        <div className="mx-auto max-w-[1400px] px-6 lg:px-10 mb-12">
-          <div className="kicker text-bone/50 mb-4">Trusted By</div>
-          <h2 className="font-display text-4xl md:text-5xl text-bone leading-tight">
-            India&rsquo;s most discerning families and global design icons.
-          </h2>
-        </div>
-        <CustomersMarquee />
-      </section>
-
-      {/* NEWS / STORIES ──────────────────────────────────── */}
-      <section className="bg-bone py-28 lg:py-32">
-        <div className="mx-auto max-w-[1600px] px-6 lg:px-10">
-          <div className="flex items-end justify-between mb-12">
-            <div>
-              <div className="kicker text-smoke mb-3">Stories</div>
-              <h2 className="font-display text-4xl md:text-5xl text-ink">
-                From the Magppie journal.
-              </h2>
+          <div className="lg:col-span-6 order-1 lg:order-2">
+            <div className="relative aspect-[4/5] overflow-hidden">
+              <Image
+                src="/images/01-copy.jpg"
+                alt="Silverstone™, anti-bacterial technical stone"
+                fill
+                quality={95}
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/40 to-transparent" />
+              <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between">
+                <div>
+                  <div className="kicker text-bone/70">Patented worldwide</div>
+                  <div className="font-display text-3xl lg:text-4xl text-bone mt-1">
+                    Silverstone™
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="font-display text-5xl lg:text-6xl text-bone leading-none">
+                    Ag
+                  </div>
+                  <div className="kicker text-bone/70 mt-1">Silver · Nano</div>
+                </div>
+              </div>
             </div>
-            <Link href="/news" className="kicker hover-underline">
-              All stories →
-            </Link>
-          </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            <NewsCard
-              image="/images/1.jpg"
-              date="Nov 2024"
-              tag="Exhibition"
-              title="Magppie at FOAID, New Delhi — the Wellness Kitchen unveiled"
-            />
-            <NewsCard
-              image="/images/Hailuo_Image_Create-a-different-Angle-for-t_488492364996386825.jpg"
-              date="Apr 2026"
-              tag="Innovation"
-              title="Inside Silverstone™: nano-silver and the science of safer surfaces"
-            />
-            <NewsCard
-              image="/images/vanities/02.jpg"
-              date="Apr 2026"
-              tag="Design Partners"
-              title="Karim Rashid, Stefan Diez & Cory Grosser join the Wellness Movement"
-            />
           </div>
         </div>
       </section>
 
-      {/* CTA ─────────────────────────────────────────────── */}
-      <section className="bg-sandlight py-32 lg:py-44">
-        <div className="mx-auto max-w-[1200px] px-6 lg:px-10 text-center">
-          <div className="kicker text-smoke mb-6">Begin</div>
-          <h2 className="font-display text-5xl md:text-7xl lg:text-8xl text-ink leading-[1.02]">
-            Transform your kitchen.<br />
-            Transform your health.
-          </h2>
-          <Link
-            href="/contact"
-            className="inline-block mt-12 px-10 py-4 border border-ink text-ink kicker hover:bg-ink hover:text-bone transition-colors"
-          >
-            Book a Magppie consultation
-          </Link>
+      {/* ═════════════════════════════════════════════════════ */}
+      {/* 3. PROOF,7 lab-tested cards                        */}
+      {/* ═════════════════════════════════════════════════════ */}
+      <section id="proof" className="bg-bone py-28 lg:py-36">
+        <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
+          <div className="max-w-3xl">
+            <div className="kicker text-smoke mb-5">Lab-tested, life-proven</div>
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.05] text-ink">
+              Every claim,
+              <em className="not-italic text-smoke"> physically </em>
+              demonstrated.
+            </h2>
+            <p className="mt-8 text-ink/65 leading-relaxed">
+              Scratch tests. Fire tests. 30-day water immersion. Load tests.
+              Impact drops. Every promise Magppie makes is backed by evidence
+              you can see and verify.
+            </p>
+          </div>
+
+          <div className="mt-16 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-px bg-ink/10">
+            {PROOFS.map((p, i) => (
+              <div
+                key={p.name}
+                className="bg-bone p-6 lg:p-7 group transition-colors hover:bg-sand/60"
+              >
+                <div className="font-display text-3xl text-ink/12 leading-none mb-4">
+                  {String(i + 1).padStart(2, '0')}
+                </div>
+                <div className="font-display text-lg lg:text-xl text-ink mb-2 leading-tight">
+                  {p.name}
+                </div>
+                <p className="text-[12px] text-ink/60 leading-relaxed">
+                  {p.copy}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═════════════════════════════════════════════════════ */}
+      {/* 4. COMPARISON, Wood vs Stone                        */}
+      {/* ═════════════════════════════════════════════════════ */}
+      <section className="bg-sand py-28 lg:py-36">
+        <div className="mx-auto max-w-[1200px] px-6 lg:px-10">
+          <div className="max-w-2xl">
+            <div className="kicker text-smoke mb-5">The Evidence</div>
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.05] text-ink">
+              Wood kitchen vs.
+              <em className="not-italic text-smoke"> stone </em>
+              kitchen.
+            </h2>
+          </div>
+
+          <div className="mt-14 bg-bone border hairline">
+            <div className="grid grid-cols-[1.4fr_1fr_1fr] text-[11px] tracking-[0.22em] uppercase">
+              <div className="p-5 lg:p-6 text-smoke border-b hairline">
+                Feature
+              </div>
+              <div className="p-5 lg:p-6 text-ink/50 border-l border-b hairline">
+                Conventional wood
+              </div>
+              <div className="p-5 lg:p-6 text-bone bg-ink border-b hairline">
+                Magppie Silverstone™
+              </div>
+            </div>
+            {COMPARE_ROWS.map((r, i) => (
+              <div
+                key={r.feature}
+                className={`grid grid-cols-[1.4fr_1fr_1fr] ${
+                  i !== COMPARE_ROWS.length - 1 ? 'border-b hairline' : ''
+                }`}
+              >
+                <div className="p-5 lg:p-6 text-[13px] text-smoke font-medium">
+                  {r.feature}
+                </div>
+                <div className="p-5 lg:p-6 text-sm text-ink/55 border-l hairline">
+                  {r.bad}
+                </div>
+                <div className="p-5 lg:p-6 text-sm text-ink font-medium bg-bone">
+                  {r.good}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═════════════════════════════════════════════════════ */}
+      {/* CINEMATIC BANNER between comparison and guarantee   */}
+      {/* ═════════════════════════════════════════════════════ */}
+      <section className="relative h-[55vh] min-h-[420px] lg:min-h-[520px] overflow-hidden">
+        <Image
+          src="/images/black-kitchen.jpg"
+          alt="Magppie Wellness Kitchen in Flurry Black"
+          fill
+          quality={92}
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-ink/30 via-ink/10 to-ink/70" />
+        <div className="absolute inset-0 flex items-end">
+          <div className="mx-auto max-w-[1400px] px-6 lg:px-10 pb-16 lg:pb-20 w-full">
+            <div className="kicker text-bone/80 mb-5">A Quiet Moment</div>
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.05] text-bone max-w-3xl">
+              Built to outlast
+              <em className="not-italic italic text-bone/75"> generations.</em>
+            </h2>
+          </div>
+        </div>
+      </section>
+
+      {/* ═════════════════════════════════════════════════════ */}
+      {/* 5. GUARANTEE,25 years                              */}
+      {/* ═════════════════════════════════════════════════════ */}
+      <section
+        id="guarantee"
+        className="relative bg-ink text-bone py-28 lg:py-36 overflow-hidden"
+      >
+        {/* big ghost numeral */}
+        <div
+          aria-hidden
+          className="absolute right-0 lg:right-10 top-1/2 -translate-y-1/2 font-display text-[22rem] lg:text-[30rem] text-bone/[0.025] leading-none pointer-events-none select-none"
+        >
+          25
+        </div>
+
+        <div className="mx-auto max-w-[1400px] px-6 lg:px-10 grid lg:grid-cols-12 gap-12 lg:gap-16 items-center relative z-10">
+          <div className="lg:col-span-6">
+            <div className="kicker text-bone/50 mb-5">Our promise</div>
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.05] text-bone">
+              A <em className="not-italic italic text-bone/80">25-year</em> unconditional guarantee.
+            </h2>
+            <p className="mt-8 text-bone/65 leading-relaxed max-w-xl">
+              If anything ever happens to your Magppie kitchen, termites, water
+              damage, discolouration, structural failure, it is entirely our
+              responsibility. No asterisks, no exclusions, no fine print.
+            </p>
+
+            <ul className="mt-10 space-y-4">
+              {GUARANTEE_ITEMS.map((g) => (
+                <li key={g} className="flex items-start gap-4 text-bone/80 text-[15px]">
+                  <span className="w-5 h-5 border border-bone/40 flex items-center justify-center text-[10px] mt-0.5 flex-shrink-0">
+                    ✓
+                  </span>
+                  <span className="leading-relaxed">{g}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="lg:col-span-6 grid gap-px bg-bone/10">
+            {GUARANTEE_CARDS.map((g) => (
+              <div
+                key={g.title}
+                className="bg-ink border-l-2 border-bone/25 p-8 lg:p-10"
+              >
+                <h3 className="font-display text-2xl lg:text-3xl text-bone mb-3 leading-tight">
+                  {g.title}
+                </h3>
+                <p className="text-sm text-bone/55 leading-relaxed">
+                  {g.copy}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═════════════════════════════════════════════════════ */}
+      {/* 6. CLIENTS, distinguished homes grid                */}
+      {/* ═════════════════════════════════════════════════════ */}
+      <section id="clients" className="bg-bone py-28 lg:py-36">
+        <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
+          <div className="max-w-3xl">
+            <div className="kicker text-smoke mb-5">Distinguished Homes</div>
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.05] text-ink">
+              Chosen by India&rsquo;s most
+              <em className="not-italic text-smoke"> quietly discerning </em>
+              families.
+            </h2>
+          </div>
+
+          <div className="mt-14 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-px bg-ink/10">
+            {CELEBRITIES.map((c) => (
+              <figure
+                key={c.name}
+                className="group bg-bone flex flex-col"
+              >
+                <div className="relative aspect-[4/5] overflow-hidden bg-sand">
+                  <Image
+                    src={c.image}
+                    alt={c.name}
+                    fill
+                    quality={90}
+                    sizes="(min-width: 768px) 230px, (min-width: 640px) 25vw, 33vw"
+                    className="object-cover object-top tile-img grayscale-[20%] group-hover:grayscale-0 transition-[filter] duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-ink/20 to-transparent pointer-events-none" />
+                </div>
+                <figcaption className="px-3 py-3 md:px-4 md:py-4">
+                  <div className="font-display text-[15px] md:text-base text-ink leading-tight">
+                    {c.name}
+                  </div>
+                  <div className="kicker text-smoke text-[9px] mt-1.5 leading-tight">
+                    {c.role}
+                  </div>
+                </figcaption>
+              </figure>
+            ))}
+            {/* closing card — private client list */}
+            <figure className="bg-sand flex flex-col">
+              <div className="relative aspect-[4/5] flex items-center justify-center">
+                <div className="text-center px-3">
+                  <div className="font-display text-3xl md:text-4xl text-ink/80 leading-none">
+                    100&#8239;+
+                  </div>
+                  <div className="kicker text-smoke text-[9px] mt-3">Private clients</div>
+                </div>
+              </div>
+              <figcaption className="px-3 py-3 md:px-4 md:py-4">
+                <div className="font-display text-[15px] md:text-base text-ink leading-tight">
+                  &amp; many more.
+                </div>
+                <div className="kicker text-smoke text-[9px] mt-1.5 leading-tight">
+                  Across India &amp; the world
+                </div>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      {/* ═════════════════════════════════════════════════════ */}
+      {/* 7. TESTIMONIAL, Stacy McCarthy                      */}
+      {/* ═════════════════════════════════════════════════════ */}
+      <section className="bg-sand py-28 lg:py-36">
+        <div className="mx-auto max-w-[1000px] px-6 lg:px-10 text-center">
+          <div className="kicker text-smoke mb-8">From a Global Peer</div>
+          <blockquote className="font-display text-2xl md:text-3xl lg:text-4xl leading-[1.2] text-ink italic">
+            &ldquo;Working with Magppie was a revelation. The craftsmanship,
+            the materials philosophy, the depth of thinking about how a kitchen
+            should actually function for health, it&rsquo;s unlike anything
+            I&rsquo;ve encountered in my 20-year career as a kitchen designer.&rdquo;
+          </blockquote>
+          <div className="mt-12 flex items-center justify-center gap-5">
+            <div className="relative w-16 h-16 rounded-full overflow-hidden bg-bone border hairline">
+              <Image
+                src="/testimonials/stacy_mccarthy.webp"
+                alt="Stacy McCarthy"
+                fill
+                quality={92}
+                sizes="128px"
+                className="object-cover object-top"
+              />
+            </div>
+            <div className="text-left">
+              <div className="font-display text-xl text-ink leading-tight">
+                Stacy McCarthy
+              </div>
+              <div className="text-[11px] tracking-[0.18em] uppercase text-smoke mt-1">
+                Certified Master Kitchen &amp; Bath Designer · KBIS 2026 Presenter
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═════════════════════════════════════════════════════ */}
+      {/* 8. AWARDS                                            */}
+      {/* ═════════════════════════════════════════════════════ */}
+      <section id="awards" className="bg-bone py-24 lg:py-28">
+        <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
+          <div className="max-w-3xl">
+            <div className="kicker text-smoke mb-5">Global Recognition</div>
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.05] text-ink">
+              Recognised by the world&rsquo;s most
+              <em className="not-italic text-smoke"> prestigious </em>
+              design bodies.
+            </h2>
+          </div>
+
+          <div className="mt-14 flex flex-wrap gap-3">
+            {AWARDS.map((a) => (
+              <span
+                key={a}
+                className="inline-flex items-center text-[11px] tracking-[0.16em] uppercase font-medium text-ink/75 border hairline px-4 py-2.5 bg-bone hover:border-ink/50 transition-colors"
+              >
+                {a}
+              </span>
+            ))}
+          </div>
+
+          <div className="mt-10 flex flex-wrap gap-3">
+            {MEMBERSHIPS.map((m) => (
+              <span
+                key={m}
+                className="inline-flex items-center text-[11px] tracking-[0.16em] uppercase font-medium text-smoke px-4 py-2.5 bg-sand/60"
+              >
+                {m}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═════════════════════════════════════════════════════ */}
+      {/* 9. PROCESS,4 steps                                 */}
+      {/* ═════════════════════════════════════════════════════ */}
+      <section id="process" className="bg-sand py-28 lg:py-36">
+        <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
+          <div className="max-w-3xl">
+            <div className="kicker text-smoke mb-5">The Process</div>
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.05] text-ink">
+              From enquiry to
+              <em className="not-italic text-smoke"> your dream kitchen</em>
+              , in four steps.
+            </h2>
+          </div>
+
+          <div className="mt-16 grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-ink/10">
+            {STEPS.map((s, i) => (
+              <div key={s.title} className="bg-bone p-10 flex flex-col">
+                <div className="font-display text-5xl text-ink/15 leading-none">
+                  {String(i + 1).padStart(2, '0')}
+                </div>
+                <h3 className="font-display text-2xl lg:text-3xl text-ink mt-8 mb-4 leading-tight">
+                  {s.title}
+                </h3>
+                <p className="text-sm text-ink/65 leading-relaxed">{s.copy}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═════════════════════════════════════════════════════ */}
+      {/* 10. BOOK, final lead form                           */}
+      {/* ═════════════════════════════════════════════════════ */}
+      <section
+        id="book"
+        className="relative bg-ink text-bone py-28 lg:py-40 overflow-hidden"
+      >
+        {/* subtle backdrop */}
+        <div className="absolute inset-0 opacity-40">
+          <Image
+            src="/images/02.jpg"
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-ink/75" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-[1400px] px-6 lg:px-10 grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          <div className="lg:col-span-6">
+            <div className="kicker text-bone/50 mb-5">Your move</div>
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.05] text-bone">
+              Book a private
+              <em className="not-italic italic text-bone/80"> Magppie </em>
+              consultation.
+            </h2>
+            <p className="mt-8 text-bone/65 leading-relaxed max-w-xl">
+              The consultation is private, free, takes 20 minutes and comes
+              with no obligation. A Magppie advisor will present a custom 3D
+              design for your space and transparent pricing within 24 hours.
+            </p>
+
+            <ul className="mt-10 space-y-3.5">
+              {FINAL_BULLETS.map((b) => (
+                <li key={b} className="flex items-start gap-4 text-bone/75 text-[15px]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-bone/60 mt-2.5 flex-shrink-0" />
+                  <span className="leading-relaxed">{b}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-12 pt-8 border-t border-bone/15 flex flex-col sm:flex-row gap-5 sm:gap-10 text-sm">
+              <div>
+                <div className="kicker text-bone/45 mb-2">India</div>
+                <a
+                  href="tel:+919999999012"
+                  className="text-bone hover-underline"
+                >
+                  +91 99999 99012
+                </a>
+              </div>
+              <div>
+                <div className="kicker text-bone/45 mb-2">USA</div>
+                <a
+                  href="tel:+13522136412"
+                  className="text-bone hover-underline"
+                >
+                  +1 352-213-6412
+                </a>
+              </div>
+              <div>
+                <div className="kicker text-bone/45 mb-2">Email</div>
+                <a
+                  href="mailto:info@mymagppie.com"
+                  className="text-bone hover-underline"
+                >
+                  info@mymagppie.com
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* form card */}
+          <div className="lg:col-span-6">
+            <div className="bg-bone text-ink">
+              <div className="px-8 lg:px-10 pt-9 pb-3">
+                <div className="kicker text-smoke mb-3">Private Enquiry</div>
+                <h3 className="font-display text-3xl lg:text-[2.1rem] text-ink leading-[1.1]">
+                  Book a Free<br />
+                  Consultation.
+                </h3>
+              </div>
+              <div className="px-8 lg:px-10 pb-10">
+                <LeadForm
+                  variant="light"
+                  submitLabel="Get my free design consultation"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </>
   );
 }
 
-function Tile({
-  href,
-  kicker,
-  title,
-  image
-}: {
-  href: string;
-  kicker: string;
-  title: string;
-  image: string;
-}) {
-  return (
-    <Link href={href} className="group relative block overflow-hidden aspect-[4/5] bg-ink">
-      <Image
-        src={image}
-        alt={title}
-        fill
-        priority
-        quality={95}
-        sizes="(min-width: 768px) 50vw, 100vw"
-        className="object-cover tile-img opacity-95 group-hover:opacity-100"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/10 to-transparent" />
-      <div className="absolute bottom-0 left-0 right-0 p-8 lg:p-10 text-bone">
-        <div className="kicker text-bone/80 mb-3">{kicker}</div>
-        <div className="font-display text-4xl lg:text-5xl">{title}</div>
-        <div className="kicker mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-          Discover →
-        </div>
-      </div>
-    </Link>
-  );
-}
+/* ─────────────────────────────────────────────────────────── */
+/* DATA                                                        */
+/* ─────────────────────────────────────────────────────────── */
 
-function NewsCard({
-  image,
-  date,
-  tag,
-  title
-}: {
-  image: string;
-  date: string;
-  tag: string;
-  title: string;
-}) {
-  return (
-    <article className="group cursor-pointer">
-      <div className="relative aspect-[4/5] overflow-hidden bg-sand">
-        <Image
-          src={image}
-          alt={title}
-          fill
-          quality={92}
-          sizes="(min-width: 768px) 33vw, 100vw"
-          className="object-cover tile-img"
-        />
-      </div>
-      <div className="mt-6 flex items-center gap-3 kicker text-smoke">
-        <span>{date}</span>
-        <span className="w-6 h-px bg-smoke/40" />
-        <span>{tag}</span>
-      </div>
-      <h3 className="mt-3 font-display text-2xl lg:text-3xl text-ink leading-snug">
-        {title}
-      </h3>
-      <span className="inline-block mt-4 kicker hover-underline">Read story →</span>
-    </article>
-  );
-}
+const PROOF_ITEMS = [
+  { head: 'KBIS 2026',        sub: 'Most Unexpected Innovation' },
+  { head: 'Red Dot × 5',      sub: 'Best of the Best · Germany' },
+  { head: '20+ Countries',    sub: 'Present worldwide' },
+  { head: '25 Years',         sub: 'Unconditional guarantee' },
+  { head: 'Since 1976',       sub: '5 decades of craft' }
+];
 
-const BENEFITS = [
+const CONCERNS = [
   {
-    kicker: 'Health',
-    items: ['100% Bacteria Safe', '100% Virus Safe', '100% Fungal Safe', '100% Termite Proof']
+    title: 'Formaldehyde emissions',
+    body: 'Compressed wood, MDF, plywood, particle board, continuously off-gases formaldehyde, classified by the WHO as a Group 1 carcinogen. This happens silently, every day, in the room where your family cooks and breathes.',
+    bad: 'Released daily',
+    good: 'Zero emissions',
+    image: '/images/00.jpg'
   },
   {
-    kicker: 'Resistance',
-    items: ['Scratch Proof', 'Stain Proof', 'Water Proof', 'High-Temperature Resistant']
+    title: 'Moisture, mould & fungus',
+    body: 'Wood is porous. It absorbs steam and moisture from every meal. Over 2–3 years, mould begins growing inside cabinets, invisible to the eye, releasing spores into the air your family breathes.',
+    bad: 'Absorbs moisture',
+    good: 'Zero absorption',
+    image: '/images/Hailuo_Image_upscale-it-8k-quality-render-u_489889040277979143.jpg'
   },
   {
-    kicker: 'Environment',
-    items: ['Ecological', '100% Recyclable', 'Zero Deforestation', 'Zero Mining']
-  },
-  {
-    kicker: 'Safety',
-    items: ['Heat Resistant', 'Fire Resistant', 'Zero Formaldehyde', 'Zero VOC']
-  },
-  {
-    kicker: 'Promise',
-    items: ['25-Year Guarantee', '25 Complimentary Services', 'Lifetime Care', 'Patented Technology']
+    title: 'Termites & decay',
+    body: 'Termites eat wood from the inside out, silently, invisibly. By the time the damage is visible, the cabinetry structure is often irreparable. Most families replace their kitchen within ten years.',
+    bad: 'Termite risk',
+    good: 'Termite-proof',
+    image: '/images/Hailuo_Image_re-render-it-8k-quality-render_489929208284426245.jpg'
   }
+];
+
+const PRODUCTS = [
+  {
+    title: 'Kitchens',
+    kicker: 'Wellness 01',
+    image: '/images/22.jpg',
+    copy: 'Every cabinet, fascia and handle, in patented Silverstone™.'
+  },
+  {
+    title: 'Wardrobes',
+    kicker: 'Wellness 02',
+    image: '/images/wardrobes/concept-1.webp',
+    copy: 'Zero-formaldehyde wardrobes, safer for skin and clothes.'
+  },
+  {
+    title: 'Vanities',
+    kicker: 'Wellness 03',
+    image: '/images/vanities/onyx-gold-overmount.webp',
+    copy: 'Mould-proof, water-proof. Built for the most humid room.'
+  }
+];
+
+const PROPERTIES = [
+  { sym: 'Ag',  title: 'Silver-nano antibacterial, permanent', copy: 'Silver ions stop bacteria from settling or reproducing. Built into the stone itself, cannot wash or wear away.' },
+  { sym: 'H₂O', title: '100% waterproof, zero absorption',       copy: 'Silverstone™ absorbs zero moisture. No swelling, no mould, no weakening. Verified by 30-day immersion.' },
+  { sym: '°C',  title: 'Fire resistant, non-combustible',         copy: 'Stone does not burn or spread flame. The safest surface to live around daily cooking heat.' },
+  { sym: 'Ø',   title: 'Zero formaldehyde, zero toxins',           copy: 'Stone releases nothing. No off-gassing, no VOCs, no carcinogens. Ever.' },
+  { sym: '∞',   title: '100% sustainable, zero deforestation',    copy: 'No trees felled, no chemical laminates. A kitchen that is genuinely good for the planet.' }
+];
+
+const PROOFS = [
+  { name: 'Stain safe',     copy: 'Coffee, haldi, oil, wipe clean every time. Non-porous stone absorbs nothing.' },
+  { name: 'Scratch safe',   copy: 'Daily knife work, chopping, scratch-resistant Silverstone™ leaves zero marks.' },
+  { name: '60 kg load',     copy: 'Each drawer holds 60 kg without bending or losing structural integrity.' },
+  { name: 'Fire safe',      copy: 'Stone does not combust or spread flame. Safe around daily open-flame cooking.' },
+  { name: 'Water safe',     copy: '30-day water immersion: wood swelled and collapsed. Stone: zero change.' },
+  { name: 'Impact safe',    copy: 'Heavy ceramic jar dropped on surface. Stone intact. Built for real kitchen life.' },
+  { name: '62% more space', copy: 'Extra-depth wall cabinets fit large Indian plates standard kitchens cannot.' }
+];
+
+const COMPARE_ROWS = [
+  { feature: 'Formaldehyde emissions', bad: 'Released daily, WHO carcinogen',       good: 'Zero emissions. Pure air.' },
+  { feature: 'Termite resistance',     bad: 'Eaten silently from inside out',        good: 'Stone cannot be eaten. Ever.' },
+  { feature: 'Mould & fungus',         bad: 'Absorbs moisture, mould in 2–3 years', good: 'Zero absorption. Zero mould.' },
+  { feature: 'Antibacterial',          bad: 'Bacteria thrives on porous wood',       good: 'Silver-nano kills bacteria permanently' },
+  { feature: 'Fire safety',            bad: 'Combustible, spreads flame',           good: 'Non-combustible. Fire-resistant.' },
+  { feature: 'Longevity',              bad: 'Degrades in 8 – 12 years',              good: '25-year unconditional guarantee' },
+  { feature: 'Sustainability',         bad: 'Tree felling + toxic laminates',         good: 'Zero trees. 100% eco.' }
+];
+
+const GUARANTEE_ITEMS = [
+  '25-year unconditional stone guarantee, all damage covered',
+  '25 complimentary annual home visits, deep clean & inspection',
+  '10-year guarantee on hardware and accessories',
+  '2-year warranty on all patented lighting',
+  'The strongest guarantee in the kitchen industry, globally'
+];
+
+const GUARANTEE_CARDS = [
+  {
+    title: '25 years, unconditional',
+    copy: 'Termites, water damage, swelling, warping, colour change, everything covered. No exceptions. No exclusions. Our stone is our promise.'
+  },
+  {
+    title: 'Annual home visits, 25 years included',
+    copy: 'Every year for a quarter-century, our team visits your home: deep clean, alignment check, full inspection. Always looks and feels brand new.'
+  },
+  {
+    title: 'Hardware, accessories & lighting',
+    copy: '10-year guarantee on every mechanism. 2-year warranty on all lighting. Every component, every detail, covered.'
+  }
+];
+
+const CELEBRITIES = [
+  { name: 'Mukesh Ambani',   role: 'Chairman, Reliance Industries',        image: '/testimonials/mukesh_ambani.webp' },
+  { name: 'Anant Ambani',    role: 'Director, Reliance Industries',        image: '/testimonials/anant_ambani.webp' },
+  { name: 'M. S. Dhoni',     role: 'World Cup-winning Captain',            image: '/testimonials/ms_dhoni.webp' },
+  { name: 'Nitin Gadkari',   role: 'Union Minister of Road Transport',     image: '/testimonials/nitin_gadkari.webp' },
+  { name: 'Kamal Nath',      role: 'Member of Parliament, India',          image: '/testimonials/kamal_nath.webp' },
+  { name: 'Shilpa Shetty',   role: 'Actress',                              image: '/testimonials/shilpa_shetty.webp' },
+  { name: 'Peyush Bansal',   role: 'Founder, Lenskart',                    image: '/testimonials/peyush_bansal.webp' },
+  { name: 'Akhil Akkineni',  role: 'Actor',                                image: '/testimonials/akhil_akkineni.webp' },
+  { name: 'Rizwan Sajan',    role: 'Founder, Danube Group',                image: '/testimonials/rizwan_sajan.webp' },
+  { name: 'Ritesh Malik',    role: 'Founder, Innov8',                      image: '/testimonials/ritesh_malik.webp' },
+  { name: 'Rushi Ajmera',    role: 'Ajmera Realty',                        image: '/testimonials/rushi_ajmera.webp' }
+];
+
+const AWARDS = [
+  'KBIS 2026, Most Unexpected Innovation · Orlando',
+  'Red Dot Award 2007',
+  'Red Dot Award 2008',
+  'Red Dot Award 2009',
+  'Red Dot Best of the Best 2010',
+  'Red Dot Award 2011',
+  'iF International Design Award, Germany',
+  'EDIDA India, Best Kitchen 2013',
+  'Quality Excellence Award, Paris',
+  'MOMA Collection, San Francisco',
+  'MCHI CREDAI Preferred Partner 2016',
+  'TISE 2026, Las Vegas',
+  'Home Show 2026, Miami'
+];
+
+const MEMBERSHIPS = [
+  'ISFA, International Surface Fabricators Association',
+  'NKBA, National Kitchen & Bath Association',
+  'NSI, National Stone Institute'
+];
+
+const STEPS = [
+  {
+    title: 'Free consultation',
+    copy: 'Share a few details. Our design expert calls within 24 hours to understand your space, lifestyle and needs.'
+  },
+  {
+    title: 'Design presentation',
+    copy: 'Receive a detailed 3D design with full material options, configurations and a transparent cost sheet.'
+  },
+  {
+    title: 'Approve & produce',
+    copy: 'Approve your design and commercials. Our factory begins custom production, approximately three months to completion.'
+  },
+  {
+    title: 'Install & enjoy',
+    copy: 'Our expert team installs your Wellness Kitchen. You receive your 25-year guarantee and annual care schedule.'
+  }
+];
+
+const FINAL_BULLETS = [
+  '100% free consultation, zero cost, zero pressure',
+  'Custom 3D design presentation for your exact space',
+  'Transparent pricing with no hidden charges',
+  'Starting from ₹8,400 per sq. ft. · USD 200 per sq. ft.',
+  '25-year unconditional guarantee from day one',
+  'Trusted by Mukesh Ambani, MS Dhoni and many more',
+  'KBIS 2026 Most Unexpected Innovation winner'
 ];

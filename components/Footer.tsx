@@ -1,11 +1,11 @@
-import Link from 'next/link';
 import Image from 'next/image';
 
 export default function Footer() {
   return (
     <footer className="bg-ink text-bone">
-      <div className="mx-auto max-w-[1600px] px-6 lg:px-10 py-20">
+      <div className="mx-auto max-w-[1600px] px-6 lg:px-10 py-16 lg:py-20">
         <div className="grid lg:grid-cols-12 gap-12">
+          {/* brand */}
           <div className="lg:col-span-5">
             <Image
               src="/logos/magppie-white.svg"
@@ -17,60 +17,92 @@ export default function Footer() {
             <p className="font-display text-3xl lg:text-4xl leading-tight max-w-md">
               For people<br />and planet.
             </p>
-            <p className="mt-8 text-sm text-bone/60 max-w-md">
-              The world&rsquo;s first Wellness Kitchen and Wardrobe brand.
-              Fully built in patented anti-bacterial Silverstone&trade;.
+            <p className="mt-8 text-sm text-bone/60 max-w-md leading-relaxed">
+              The world&rsquo;s first Wellness Kitchen brand. Fully built in
+              patented anti-bacterial Silverstone™, guaranteed for 25 years.
             </p>
           </div>
 
+          {/* contact */}
           <div className="lg:col-span-3">
-            <div className="kicker text-bone/50 mb-5">Explore</div>
-            <ul className="space-y-3 text-sm">
-              <li><Link href="/kitchens" className="hover-underline">Wellness Kitchen</Link></li>
-              <li><Link href="/wardrobes" className="hover-underline">Wellness Wardrobe</Link></li>
-              <li><Link href="/vanities" className="hover-underline">Wellness Vanity</Link></li>
-              <li><Link href="/materials" className="hover-underline">Silverstone&trade; Finishes</Link></li>
-              <li><Link href="/about" className="hover-underline">The Wellness Movement</Link></li>
-              <li><Link href="/news" className="hover-underline">News</Link></li>
-              <li><Link href="/catalogs" className="hover-underline">Catalogs</Link></li>
+            <div className="kicker text-bone/50 mb-5">Contact</div>
+            <ul className="space-y-3 text-sm text-bone/80">
+              <li>
+                <a
+                  href="tel:+919999999012"
+                  className="hover-underline inline-block"
+                >
+                  <span className="text-bone/40 mr-2">IN</span>+91 99999 99012
+                </a>
+              </li>
+              <li>
+                <a
+                  href="tel:+13522136412"
+                  className="hover-underline inline-block"
+                >
+                  <span className="text-bone/40 mr-2">US</span>+1 352-213-6412
+                </a>
+              </li>
+              <li>
+                <a
+                  href="mailto:info@mymagppie.com"
+                  className="hover-underline inline-block"
+                >
+                  info@mymagppie.com
+                </a>
+              </li>
             </ul>
+
+            <div className="kicker text-bone/50 mt-8 mb-4">Studio</div>
+            <address className="not-italic text-sm text-bone/70 leading-relaxed">
+              Magppie Silverstone Pvt. Ltd.<br />
+              352, Sultanpur, MG Road<br />
+              New Delhi 110030<br />
+              Mon – Sat · 10:00 – 19:00 IST
+            </address>
           </div>
 
+          {/* explore + social */}
           <div className="lg:col-span-4">
-            <div className="kicker text-bone/50 mb-5">Newsletter</div>
-            <p className="text-sm text-bone/70 mb-5">
-              Receive Magppie stories, new openings, and design notes.
-            </p>
-            <form className="flex border-b border-bone/30 pb-2 mb-6">
-              <input
-                type="email"
-                required
-                placeholder="Your email"
-                className="flex-1 bg-transparent placeholder-bone/40 text-sm focus:outline-none"
-              />
-              <button
-                type="submit"
-                className="kicker text-bone hover:text-sand transition-colors"
+            <div className="kicker text-bone/50 mb-5">Explore</div>
+            <ul className="space-y-3 text-sm text-bone/80">
+              <li><a href="#why-wellness" className="hover-underline">Why Wellness</a></li>
+              <li><a href="#silverstone" className="hover-underline">Silverstone™</a></li>
+              <li><a href="#proof" className="hover-underline">Lab-tested Proof</a></li>
+              <li><a href="#guarantee" className="hover-underline">25-Year Guarantee</a></li>
+              <li><a href="#process" className="hover-underline">Our Process</a></li>
+              <li><a href="#book" className="hover-underline">Book a consultation</a></li>
+            </ul>
+
+            <div className="kicker text-bone/50 mt-8 mb-4">Follow</div>
+            <div className="flex gap-6 text-sm text-bone/80">
+              <a
+                href="https://www.instagram.com/magppie_wellness/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover-underline"
               >
-                Submit →
-              </button>
-            </form>
-            <label className="flex items-start gap-2 text-xs text-bone/50">
-              <input type="checkbox" className="mt-1 accent-sand" required />
-              <span>I have read and accept the privacy policy.</span>
-            </label>
+                Instagram
+              </a>
+              <a
+                href="https://www.youtube.com/channel/UCzO3W7kLOol2p8FwAv20hBg"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover-underline"
+              >
+                YouTube
+              </a>
+            </div>
           </div>
         </div>
 
-        <div className="mt-20 pt-8 border-t border-bone/20 flex flex-col lg:flex-row gap-6 lg:items-center lg:justify-between text-xs text-bone/50">
-          <div className="flex flex-wrap gap-x-6 gap-y-2">
-            <Link href="/legal" className="hover:text-bone">Legal</Link>
-            <Link href="/privacy" className="hover:text-bone">Privacy</Link>
-            <Link href="/cookies" className="hover:text-bone">Cookies</Link>
-            <Link href="/sitemap" className="hover:text-bone">Sitemap</Link>
-            <Link href="/whistleblowing" className="hover:text-bone">Whistleblowing</Link>
+        <div className="mt-16 pt-8 border-t border-bone/15 flex flex-col lg:flex-row gap-3 lg:items-center lg:justify-between text-[11px] tracking-[0.14em] uppercase text-bone/40">
+          <div>
+            © {new Date().getFullYear()} Magppie Silverstone Pvt. Ltd. All rights reserved.
           </div>
-          <div>© {new Date().getFullYear()} Magppie Silverstone Pvt. Ltd. — All rights reserved.</div>
+          <div className="text-bone/30">
+            Silverstone™ is patented by Magppie worldwide.
+          </div>
         </div>
       </div>
     </footer>

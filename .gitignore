@@ -5,8 +5,9 @@ dist/
 .env
 .env.local
 .DS_Store
+tsconfig.tsbuildinfo
 
-# original, pre-compression assets — kept locally as a safety net, never shipped
+# original, pre-compression assets, kept locally as a safety net, never shipped
 public/_originals/
 
 # optimizer artifacts
