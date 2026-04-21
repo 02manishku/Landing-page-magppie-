@@ -14,10 +14,65 @@ export default function LeadForm({
   compact?: boolean;
 }) {
   const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setSent(true);
+    if (submitting) return;
+
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    // Pull UTM params from the URL (browser-only, safe inside 'use client').
+    const params =
+      typeof window !== 'undefined'
+        ? new URLSearchParams(window.location.search)
+        : new URLSearchParams();
+
+    const payload = {
+      name: String(data.get('name') ?? '').trim(),
+      phone: String(data.get('phone') ?? '').replace(/\D/g, ''),
+      email: String(data.get('email') ?? '').trim(),
+      location: String(data.get('location') ?? ''),
+      budget: String(data.get('budget') ?? ''),
+      timeline: String(data.get('timeline') ?? ''),
+      utm: {
+        source: params.get('utm_source') ?? '',
+        medium: params.get('utm_medium') ?? '',
+        campaign: params.get('utm_campaign') ?? '',
+        campaignid: params.get('utm_campaignid') ?? '',
+        adgroupid: params.get('utm_adgroupid') ?? '',
+        keyword: params.get('utm_keyword') ?? '',
+        placement: params.get('utm_placement') ?? ''
+      }
+    };
+
+    setSubmitting(true);
+    setError(null);
+
+    try {
+      const res = await fetch('/api/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body.error || 'Submission failed. Please try again.');
+      }
+
+      setSent(true);
+    } catch (err) {
+      const msg =
+        err instanceof Error
+          ? err.message
+          : 'Something went wrong. Please try again.';
+      setError(msg);
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   const isDark = variant === 'dark';
@@ -94,8 +149,25 @@ export default function LeadForm({
         </span>
       </label>
 
-      <button type="submit" className={submitBase}>
-        {submitLabel} →
+      {error && (
+        <div
+          role="alert"
+          className={`text-[12px] leading-relaxed px-4 py-3 border ${
+            isDark
+              ? 'border-bone/30 text-bone bg-bone/5'
+              : 'border-red-700/30 text-red-800 bg-red-50'
+          }`}
+        >
+          {error}
+        </div>
+      )}
+
+      <button
+        type="submit"
+        disabled={submitting}
+        className={`${submitBase} disabled:opacity-60 disabled:cursor-not-allowed`}
+      >
+        {submitting ? 'Submitting…' : `${submitLabel} →`}
       </button>
 
       <p className={`text-[11px] leading-relaxed ${helperBase} pt-1`}>
