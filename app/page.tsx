@@ -82,7 +82,7 @@ export default function HomePage() {
           <div className="max-w-3xl">
             <div className="kicker text-smoke mb-5">Why Wellness Matters</div>
             <h2 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.05] text-ink">
-              What quietly happens inside a conventional{' '}
+              What happens quietly inside a conventional{' '}
               <em className="not-italic text-red-800">wood</em>
               <em className="not-italic text-smoke">-based</em> kitchen.
             </h2>
@@ -145,7 +145,7 @@ export default function HomePage() {
           <div className="lg:col-span-6 order-2 lg:order-1">
             <div className="kicker text-bone/50 mb-5">The Solution</div>
             <h2 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.05] text-bone">
-              Meet <em className="not-italic italic text-bone/80">Silverstone™</em>, the world&rsquo;s only antibacterial stone.
+              Meet <em className="not-italic italic text-bone/80">Silverstone<span className="text-[0.45em] align-super tracking-wider">™</span></em>, the world&rsquo;s only antibacterial stone.
             </h2>
             <p className="mt-8 text-bone/65 leading-relaxed max-w-xl">
               Magppie&rsquo;s patented material is a 100% food-grade technical
@@ -187,7 +187,7 @@ export default function HomePage() {
               <div className="absolute bottom-6 left-6 right-6">
                 <div className="kicker text-bone/70">Patented worldwide</div>
                 <div className="font-display text-3xl lg:text-4xl text-bone mt-1">
-                  Silverstone™
+                  Silverstone<span className="text-[0.45em] align-super tracking-wider">™</span>
                 </div>
               </div>
             </div>
@@ -251,15 +251,15 @@ export default function HomePage() {
 
           {/* DESKTOP TABLE (md and up) */}
           <div className="mt-12 md:mt-14 hidden md:block bg-bone border hairline">
-            <div className="grid grid-cols-[1.4fr_1fr_1fr] text-[11px] tracking-[0.22em] uppercase">
-              <div className="p-5 lg:p-6 text-smoke border-b hairline">
+            <div className="grid grid-cols-[1.4fr_1fr_1fr] text-[13px] tracking-[0.22em] uppercase">
+              <div className="p-5 lg:p-6 text-ink/80 font-semibold border-b hairline">
                 Feature
               </div>
-              <div className="p-5 lg:p-6 text-ink/50 border-l border-b hairline">
-                Conventional wood
+              <div className="p-5 lg:p-6 text-ink/70 border-l border-b hairline">
+                <span className="text-red-600 font-bold">Wood</span> Kitchens
               </div>
               <div className="p-5 lg:p-6 text-bone bg-ink border-b hairline">
-                Magppie Silverstone™
+                Magppie Kitchens
               </div>
             </div>
             {COMPARE_ROWS.map((r, i) => (
@@ -269,7 +269,7 @@ export default function HomePage() {
                   i !== COMPARE_ROWS.length - 1 ? 'border-b hairline' : ''
                 }`}
               >
-                <div className="p-5 lg:p-6 text-[13px] text-smoke font-medium">
+                <div className="p-5 lg:p-6 text-[16px] text-ink font-medium">
                   {r.feature}
                 </div>
                 <div className="p-5 lg:p-6 text-sm text-ink/55 border-l hairline">
@@ -687,7 +687,7 @@ const CONCERNS = [
 
 const PRODUCTS = [
   {
-    title: 'Wellness Kitchen',
+    title: 'Wellness Kitchens',
     kicker: 'Wellness 01',
     image: '/images/33.jpg',
     pos: '35% center',

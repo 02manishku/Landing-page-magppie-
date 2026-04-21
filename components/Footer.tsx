@@ -12,14 +12,14 @@ export default function Footer() {
               alt="Magppie"
               width={160}
               height={40}
-              className="h-8 w-auto mb-8"
+              className="h-8 w-auto mb-6"
             />
-            <p className="font-display text-3xl lg:text-4xl leading-tight max-w-md">
-              For people<br />and planet.
+            <p className="font-display text-3xl lg:text-4xl leading-tight">
+              For people and planet.
             </p>
-            <p className="mt-8 text-sm text-bone/60 max-w-md leading-relaxed">
+            <p className="mt-3 text-sm text-bone/60 max-w-md leading-relaxed">
               The world&rsquo;s first Wellness Kitchen brand. Fully built in
-              patented anti-bacterial Silverstone™, guaranteed for 25 years.
+              patented anti-bacterial Silverstone<span className="text-[0.7em] align-super">™</span>, guaranteed for 25 years.
             </p>
           </div>
 
