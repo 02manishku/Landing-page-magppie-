@@ -3,7 +3,22 @@ import { NextRequest, NextResponse } from 'next/server';
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-// Map city label to the State1 value Zoho expects.
+/* ───────────────────────────────────────────────────────────
+   Zoho Web-to-Lead endpoint (direct, no middle-man).
+   Tokens generated from the 'Landing Page Magppie' webform.
+───────────────────────────────────────────────────────────── */
+
+const ZOHO_URL = 'https://crm.zoho.in/crm/WebToLeadForm';
+
+const ZOHO_TOKENS = {
+  xnQsjsdp: '3d9c51e491b3a06935a8407410ded2acdeb27bf8a2a38ba57c7aa3aae227ba5c',
+  xmIwtLD:
+    '444e568c481123ff0ccae86b0fe7df3add6f6ac6f63764cdf067e1eb184b82ed135c9b264e91ec414a9937bb5860a34b',
+  actionType: 'TGVhZHM=',
+  returnURL: 'https://landing-page-magppie.vercel.app/'
+};
+
+/* Map our user-facing City dropdown value to Zoho's State picklist (LEADCF7). */
 const STATE_MAP: Record<string, string> = {
   'Delhi NCR':     'Delhi',
   'Mumbai':        'Maharashtra',
@@ -19,19 +34,8 @@ const STATE_MAP: Record<string, string> = {
   'Lucknow':       'Uttar Pradesh',
   'Surat':         'Gujarat',
   'Goa':           'Goa',
-  'Other (India)': 'Other'
+  'Other (India)': ''
 };
-
-const ZOHO_ENDPOINT = 'https://api.magppie.com/api/leads/';
-
-// Normalise picklist values to plain ASCII so Zoho's exact-match check passes.
-function normalisePicklist(s: string) {
-  return s
-    .replace(/₹/g, '')        // drop rupee symbol
-    .replace(/[\u2013\u2014]/g, '-') // en/em dash -> hyphen
-    .replace(/\s+/g, ' ')     // collapse whitespace
-    .trim();
-}
 
 export async function POST(req: NextRequest) {
   try {
@@ -56,89 +60,68 @@ export async function POST(req: NextRequest) {
     }
 
     const state = STATE_MAP[location] ?? '';
-    const city = location;
 
-    // Only include fields that have real values. Empty strings on picklists
-    // are a common cause of Zoho 400 ("Invalid picklist value").
-    const zoho_data: Record<string, string> = {
-      Last_Name: name,
-      Email: email,
-      Mobile: phone,
-      Phone: phone,
-      Lead_Source: 'Website- Magppie'
-    };
-    const b = normalisePicklist(budget);
-    if (b) zoho_data.Est_Budget = b;
-    const t = normalisePicklist(timeline);
-    if (t) zoho_data.How_Soon_Do_You_Require_Magppie = t;
-    if (state) zoho_data.State1 = state;
-    if (city) zoho_data.City = city;
-    // UTM params, only if present
-    const utmMap: Record<string, string> = {
-      utm_source: String(utm.source ?? ''),
-      utm_medium: String(utm.medium ?? ''),
-      utm_campaign: String(utm.campaign ?? ''),
-      utm_Campaignid: String(utm.campaignid ?? ''),
-      utm_adgroupid: String(utm.adgroupid ?? ''),
-      utm_keyword: String(utm.keyword ?? ''),
-      utm_placement: String(utm.placement ?? '')
-    };
-    for (const [k, v] of Object.entries(utmMap)) if (v) zoho_data[k] = v;
+    /* Build form-urlencoded body — Zoho's Web-to-Lead endpoint does not
+       accept JSON. Field names must match the webform's <input name="…">
+       exactly, INCLUDING spaces.                                       */
+    const form = new URLSearchParams();
 
-    // Try JSON first. Some Zoho proxies expect form-encoded — we'll fall back to that if JSON is rejected.
-    async function sendJson() {
-      return fetch(ZOHO_ENDPOINT, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify(zoho_data)
-      });
-    }
-    async function sendForm() {
-      const form = new URLSearchParams();
-      Object.entries(zoho_data).forEach(([k, v]) => form.append(k, String(v ?? '')));
-      return fetch(ZOHO_ENDPOINT, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Accept': 'application/json, text/plain, */*'
-        },
-        body: form.toString()
-      });
-    }
+    // Security tokens (required)
+    form.append('xnQsjsdp', ZOHO_TOKENS.xnQsjsdp);
+    form.append('xmIwtLD', ZOHO_TOKENS.xmIwtLD);
+    form.append('actionType', ZOHO_TOKENS.actionType);
+    form.append('returnURL', ZOHO_TOKENS.returnURL);
 
-    let response = await sendJson();
-    let rawBody = await response.text().catch(() => '');
+    // Honeypot — must be present and empty to pass Zoho's spam filter
+    form.append('aG9uZXlwb3Q', '');
 
-    // If JSON was rejected with 400/415/422, retry as form-urlencoded.
-    if (!response.ok && [400, 415, 422].includes(response.status)) {
-      const retry = await sendForm();
-      const retryBody = await retry.text().catch(() => '');
-      if (retry.ok) {
-        return NextResponse.json({ ok: true, via: 'form', upstream: retryBody.slice(0, 200) });
-      }
-      response = retry;
-      rawBody = retryBody;
+    // Lead fields
+    form.append('Last Name', name);
+    if (email) form.append('Email', email);
+    form.append('Mobile', phone);
+    if (location) form.append('City', location);
+    if (state) form.append('LEADCF7', state);          // State
+    if (budget) form.append('LEADCF8', budget);        // Est. Budget picklist
+    if (timeline) form.append('LEADCF9', timeline);    // How Soon Do You Require Magppie
+    form.append('Lead Source', 'Website- Magppie');
+
+    // UTM tracking — stash in Description since the webform has no custom UTM fields
+    const utmLines: string[] = [];
+    if (utm.source) utmLines.push(`utm_source: ${utm.source}`);
+    if (utm.medium) utmLines.push(`utm_medium: ${utm.medium}`);
+    if (utm.campaign) utmLines.push(`utm_campaign: ${utm.campaign}`);
+    if (utm.campaignid) utmLines.push(`utm_campaignid: ${utm.campaignid}`);
+    if (utm.adgroupid) utmLines.push(`utm_adgroupid: ${utm.adgroupid}`);
+    if (utm.keyword) utmLines.push(`utm_keyword: ${utm.keyword}`);
+    if (utm.placement) utmLines.push(`utm_placement: ${utm.placement}`);
+    if (utmLines.length) form.append('Description', utmLines.join('\n'));
+
+    const response = await fetch(ZOHO_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+      },
+      body: form.toString(),
+      // Zoho responds with a 302 redirect to returnURL on success — we do NOT follow it.
+      redirect: 'manual'
+    });
+
+    // Zoho returns 200 with HTML or 302 to returnURL on success.
+    // Anything in the 2xx/3xx range we treat as success.
+    if (response.status >= 200 && response.status < 400) {
+      return NextResponse.json({ ok: true });
     }
 
-    if (!response.ok) {
-      console.error('[lead] upstream failed', response.status, rawBody);
-      return NextResponse.json(
-        {
-          error: `We could not submit your enquiry. (Upstream ${response.status})`,
-          debug: {
-            status: response.status,
-            body: rawBody.slice(0, 500),
-            sent: zoho_data
-          }
-        },
-        { status: 502 }
-      );
-    }
-
-    return NextResponse.json({ ok: true, via: 'json', upstream: rawBody.slice(0, 200) });
+    const errText = await response.text().catch(() => '');
+    console.error('[lead] zoho rejected', response.status, errText.slice(0, 500));
+    return NextResponse.json(
+      {
+        error: `We could not submit your enquiry. (Zoho ${response.status})`,
+        debug: { status: response.status, body: errText.slice(0, 500) }
+      },
+      { status: 502 }
+    );
   } catch (err) {
     console.error('[lead] server error', err);
     return NextResponse.json(
