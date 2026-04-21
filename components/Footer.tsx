@@ -19,7 +19,7 @@ export default function Footer() {
             </p>
             <p className="mt-3 text-sm text-bone/60 max-w-md leading-relaxed">
               The world&rsquo;s first Wellness Kitchen brand. Fully built in
-              patented anti-bacterial Silverstone<span className="text-[0.7em] align-super">™</span>, guaranteed for 25 years.
+              patented anti-bacterial Silverstone<span className="text-[0.7em] align-super">tm</span>, guaranteed for 25 years.
             </p>
           </div>
 

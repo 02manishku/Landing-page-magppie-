@@ -214,16 +214,18 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="mt-16 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-px bg-ink/10">
+          <div className="mt-16 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-px bg-ink/10">
             {PROOFS.map((p, i) => (
               <div
                 key={p.name}
-                className="bg-bone p-6 lg:p-7 group transition-colors hover:bg-sand/60"
+                className={`bg-bone p-6 lg:p-6 group transition-colors hover:bg-sand/60 ${
+                  i === PROOFS.length - 1 ? 'lg:col-span-2' : ''
+                }`}
               >
                 <div className="font-display text-3xl text-ink/12 leading-none mb-4">
                   {String(i + 1).padStart(2, '0')}
                 </div>
-                <div className="font-display text-lg lg:text-xl text-ink mb-2 leading-tight">
+                <div className="font-display text-lg lg:text-xl text-ink mb-2 leading-tight whitespace-nowrap">
                   {p.name}
                 </div>
                 <p className="text-[12px] text-ink/60 leading-relaxed">
@@ -285,17 +287,22 @@ export default function HomePage() {
           {/* MOBILE STACK (below md) — card per row */}
           <div className="mt-12 md:hidden flex flex-col gap-3">
             {COMPARE_ROWS.map((r) => (
-              <div key={r.feature} className="bg-bone border hairline">
-                <div className="px-5 py-3 border-b hairline kicker text-smoke text-[10px]">
+              <div key={r.feature} className="bg-bone border hairline overflow-hidden">
+                <div className="px-5 py-3.5 border-b hairline text-[12px] tracking-[0.18em] uppercase text-ink font-semibold">
                   {r.feature}
                 </div>
                 <div className="px-5 py-4 border-b hairline">
-                  <div className="kicker text-ink/40 text-[9px] mb-1.5">Wood</div>
-                  <div className="text-sm text-ink/60 leading-snug">{r.bad}</div>
+                  <div className="text-[11px] tracking-[0.18em] uppercase mb-2">
+                    <span className="text-red-600 font-bold">Wood</span>
+                    <span className="text-ink/60"> Kitchens</span>
+                  </div>
+                  <div className="text-[15px] text-ink/70 leading-snug">{r.bad}</div>
                 </div>
-                <div className="px-5 py-4 bg-ink/[0.02]">
-                  <div className="kicker text-ink text-[9px] mb-1.5">Silverstone™</div>
-                  <div className="text-sm text-ink font-medium leading-snug">{r.good}</div>
+                <div className="px-5 py-4 bg-ink text-bone">
+                  <div className="text-[11px] tracking-[0.18em] uppercase text-bone/90 mb-2">
+                    Magppie Kitchens
+                  </div>
+                  <div className="text-[15px] text-bone font-medium leading-snug">{r.good}</div>
                 </div>
               </div>
             ))}
@@ -716,13 +723,34 @@ const PROPERTIES = [
 ];
 
 const PROOFS = [
-  { name: 'Stain safe',     copy: 'Coffee, haldi, oil, wipe clean every time. Non-porous stone absorbs nothing.' },
-  { name: 'Scratch safe',   copy: 'Daily knife work, chopping, scratch-resistant Silverstone™ leaves zero marks.' },
-  { name: '80 kg load',     copy: 'Each drawer holds 80 kg without bending or losing structural integrity.' },
-  { name: 'Fire safe',      copy: 'Stone does not combust or spread flame. Safe around daily open-flame cooking.' },
-  { name: 'Water safe',     copy: '30-day water immersion: wood swelled and collapsed. Stone: zero change.' },
-  { name: 'Impact safe',    copy: 'Heavy ceramic jar dropped on surface. Stone intact. Built for real kitchen life.' },
-  { name: '62% more space', copy: 'Extra-depth wall cabinets fit large Indian plates standard kitchens cannot.' }
+  {
+    name: 'Stain safe',
+    copy: 'Coffee, haldi, oil - whatever you spill just wipes off. The stone doesn\u2019t soak anything in, so nothing stays behind.'
+  },
+  {
+    name: 'Scratch safe',
+    copy: 'Chopping, cutting, dragging heavy pots - nothing leaves a mark. Your kitchen looks new for years.'
+  },
+  {
+    name: '80 kg load',
+    copy: 'Every drawer can carry 80 kg without bending or sagging. Safe for your heaviest vessels, groceries, and appliances.'
+  },
+  {
+    name: 'Fire safe',
+    copy: 'The stone doesn\u2019t catch fire or spread flames. Safe for daily Indian open-flame cooking - tadka, roti, deep frying.'
+  },
+  {
+    name: 'Water safe',
+    copy: 'We kept it underwater for 30 days. Wood swelled and collapsed. The stone showed zero change.'
+  },
+  {
+    name: 'Impact safe',
+    copy: 'Drop a heavy ceramic jar on it - the stone stays intact. Built for the reality of a busy kitchen, not a showroom.'
+  },
+  {
+    name: 'Made for Indian vessels',
+    copy: 'We give 62% more space. Our cabinets are deeper and wider than standard ones, so large Indian plates, thalis, and vessels actually fit - something normal modular kitchens can\u2019t handle.'
+  }
 ];
 
 const COMPARE_ROWS = [
