@@ -238,6 +238,8 @@ function PhoneField({
   );
 }
 
+type SelectOption = string | { label: string; value: string };
+
 function Select({
   label,
   name,
@@ -247,7 +249,7 @@ function Select({
 }: {
   label: string;
   name: string;
-  options: string[];
+  options: SelectOption[];
   baseCls: string;
   labelCls: string;
 }) {
@@ -258,11 +260,15 @@ function Select({
         <option value="" disabled>
           Select…
         </option>
-        {options.map((o) => (
-          <option key={o} value={o} className="text-ink">
-            {o}
-          </option>
-        ))}
+        {options.map((o) => {
+          const value = typeof o === 'string' ? o : o.value;
+          const text = typeof o === 'string' ? o : o.label;
+          return (
+            <option key={value} value={value} className="text-ink">
+              {text}
+            </option>
+          );
+        })}
       </select>
     </label>
   );
@@ -286,17 +292,17 @@ const LOCATIONS = [
   'Other (India)'
 ];
 
-const BUDGETS = [
-  '₹11 – 15 Lakhs',
-  '₹16 – 25 Lakhs',
-  '₹25 – 30 Lakhs',
-  '₹30 – 50 Lakhs',
-  'Above ₹50 Lakhs'
+// Display label shown to user, value sent to Zoho (must match picklist exactly).
+const BUDGETS: { label: string; value: string }[] = [
+  { label: '₹11 – 15 Lakhs',   value: 'Between 11 To 15 Lakhs' },
+  { label: '₹16 – 25 Lakhs',   value: 'Between 16 To 25 Lakhs' },
+  { label: '₹25 – 30 Lakhs',   value: 'Between 25 To 30 Lakhs' },
+  { label: 'Above ₹30 Lakhs',  value: 'Above 30 Lakhs' }
 ];
 
-const TIMELINES = [
-  'Within 1 month, fast track',
-  '1 – 3 months',
-  '3 – 6 months',
-  'Just exploring'
+const TIMELINES: { label: string; value: string }[] = [
+  { label: 'Within 1 month',     value: 'Within One Month' },
+  { label: '1 – 3 months',       value: '1-3 Month' },
+  { label: '3 – 6 months',       value: '3-6 Month' },
+  { label: 'After 6 months',     value: 'After 6 Months' }
 ];
