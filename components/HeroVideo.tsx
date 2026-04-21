@@ -50,10 +50,11 @@ export default function HeroVideo() {
               <em className="not-italic italic font-light"> wellness.</em>
             </h1>
             <p className="mt-5 md:mt-6 lg:mt-8 text-bone/80 max-w-xl text-[15px] md:text-base lg:text-lg leading-relaxed fade-up delay-2">
-              Conventional wood-based kitchens quietly release formaldehyde,
-              warp with moisture and invite termites. Magppie is built entirely
-              in patented anti-bacterial Silverstone™, safer for your family,
-              guaranteed for 25 years.
+              Conventional plywood kitchens silently leak cancer-causing
+              formaldehyde, harbor termites and catch fire easily. Magppie
+              changed that. Our kitchens are built entirely in Silverstone,
+              our patented anti-bacterial, anti-termite, fire-safe medicated
+              stone. Safer. Cleaner. Built to last. Guaranteed for 25 years.
             </p>
 
             {/* inline trust row */}
@@ -95,7 +96,7 @@ export default function HeroVideo() {
               </div>
             </div>
             <p className="mt-4 md:mt-5 text-[10px] md:text-[11px] tracking-[0.18em] md:tracking-[0.2em] uppercase text-bone/55 text-center lg:text-right">
-              Starting from ₹8,400 / sq. ft. &nbsp;·&nbsp; USD 200 / sq. ft.
+              Starting from ₹8,400 / sq. ft.
             </p>
           </div>
         </div>

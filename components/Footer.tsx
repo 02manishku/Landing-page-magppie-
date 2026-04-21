@@ -53,7 +53,7 @@ export default function Footer() {
               </li>
             </ul>
 
-            <div className="kicker text-bone/50 mt-8 mb-4">Studio</div>
+            <div className="kicker text-bone/50 mt-8 mb-4">Headquarters</div>
             <address className="not-italic text-sm text-bone/70 leading-relaxed">
               Magppie Silverstone Pvt. Ltd.<br />
               352, Sultanpur, MG Road<br />
@@ -75,7 +75,7 @@ export default function Footer() {
             </ul>
 
             <div className="kicker text-bone/50 mt-8 mb-4">Follow</div>
-            <div className="flex gap-6 text-sm text-bone/80">
+            <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-bone/80">
               <a
                 href="https://www.instagram.com/magppie_wellness/"
                 target="_blank"
@@ -91,6 +91,14 @@ export default function Footer() {
                 className="hover-underline"
               >
                 YouTube
+              </a>
+              <a
+                href="https://www.facebook.com/magppiewellnesshomes/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover-underline"
+              >
+                Facebook
               </a>
             </div>
           </div>

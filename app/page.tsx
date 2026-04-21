@@ -40,7 +40,7 @@ export default function HomePage() {
           <div className="max-w-3xl mb-12 lg:mb-16">
             <div className="kicker text-smoke mb-4">One Wellness System</div>
             <h2 className="font-display text-3xl md:text-4xl lg:text-5xl leading-[1.05] text-ink">
-              Three applications.
+              Three products.
               <em className="not-italic text-smoke"> Built entirely in stone.</em>
             </h2>
           </div>
@@ -52,8 +52,9 @@ export default function HomePage() {
                     src={p.image}
                     alt={p.title}
                     fill
-                    quality={95}
-                    sizes="(min-width: 1600px) 520px, (min-width: 768px) 33vw, 100vw"
+                    quality={100}
+                    sizes="(min-width: 1600px) 800px, (min-width: 1024px) 50vw, (min-width: 768px) 34vw, 100vw"
+                    style={{ objectPosition: p.pos ?? 'center' }}
                     className="object-cover tile-img opacity-95 group-hover:opacity-100"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-ink/75 via-ink/10 to-transparent" />
@@ -63,7 +64,7 @@ export default function HomePage() {
                   <div className="font-display text-3xl lg:text-4xl leading-none">
                     {p.title}
                   </div>
-                  <div className="text-[13px] text-bone/75 mt-3 leading-relaxed max-w-xs">
+                  <div className="text-[15px] md:text-base lg:text-[17px] text-bone/85 mt-4 leading-relaxed max-w-sm">
                     {p.copy}
                   </div>
                 </figcaption>
@@ -81,32 +82,20 @@ export default function HomePage() {
           <div className="max-w-3xl">
             <div className="kicker text-smoke mb-5">Why Wellness Matters</div>
             <h2 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.05] text-ink">
-              What quietly happens inside a
-              <em className="not-italic text-smoke"> conventional </em>
-              kitchen.
+              What quietly happens inside a conventional{' '}
+              <em className="not-italic text-red-800">wood</em>
+              <em className="not-italic text-smoke">-based</em> kitchen.
             </h2>
             <p className="mt-8 text-lg text-ink/70 leading-relaxed">
-              Most modular kitchens are built in compressed wood, MDF, plywood,
-              particle board. The science on what those materials do to the air
-              we breathe and the food we prepare is now clear. We believe
-              families deserve to know.
+              Most modular kitchens in India are built in compressed wood, MDF,
+              plywood, particle board. These kitchens are not safe for our
+              families. Let&rsquo;s know why.
             </p>
           </div>
 
           <div className="mt-10 md:mt-16 grid md:grid-cols-3 gap-px bg-ink/10">
             {CONCERNS.map((c, i) => (
               <div key={c.title} className="bg-bone flex flex-col">
-                <div className="relative aspect-[5/3] overflow-hidden bg-sand">
-                  <Image
-                    src={c.image}
-                    alt={c.title}
-                    fill
-                    quality={92}
-                    sizes="(min-width: 1400px) 460px, (min-width: 768px) 33vw, 100vw"
-                    className="object-cover tile-img"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-ink/15" />
-                </div>
                 <div className="p-6 md:p-8 lg:p-10 flex-1 flex flex-col">
                   <div className="font-display text-5xl text-ink/10 leading-none mb-2">
                     {String(i + 1).padStart(2, '0')}
@@ -124,6 +113,22 @@ export default function HomePage() {
                       <span className="w-3 h-px bg-ink" />
                       <span className="text-ink">Silverstone™, {c.good}</span>
                     </div>
+                  </div>
+                </div>
+                <div className="relative aspect-[5/3] overflow-hidden bg-sand">
+                  <Image
+                    src={c.image}
+                    alt={c.title}
+                    fill
+                    quality={92}
+                    sizes="(min-width: 1400px) 460px, (min-width: 768px) 33vw, 100vw"
+                    className="object-cover tile-img"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-ink/65 via-transparent to-transparent pointer-events-none" />
+                  <div className="absolute bottom-4 left-4 md:bottom-5 md:left-5">
+                    <span className="font-display italic text-bone text-base md:text-lg leading-none drop-shadow-[0_1px_8px_rgba(0,0,0,0.5)]">
+                      This is a Magppie Kitchen
+                    </span>
                   </div>
                 </div>
               </div>
@@ -179,18 +184,10 @@ export default function HomePage() {
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-ink/40 to-transparent" />
-              <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between">
-                <div>
-                  <div className="kicker text-bone/70">Patented worldwide</div>
-                  <div className="font-display text-3xl lg:text-4xl text-bone mt-1">
-                    Silverstone™
-                  </div>
-                </div>
-                <div className="text-right">
-                  <div className="font-display text-5xl lg:text-6xl text-bone leading-none">
-                    Ag
-                  </div>
-                  <div className="kicker text-bone/70 mt-1">Silver · Nano</div>
+              <div className="absolute bottom-6 left-6 right-6">
+                <div className="kicker text-bone/70">Patented worldwide</div>
+                <div className="font-display text-3xl lg:text-4xl text-bone mt-1">
+                  Silverstone™
                 </div>
               </div>
             </div>
@@ -247,7 +244,7 @@ export default function HomePage() {
             <div className="kicker text-smoke mb-5">The Evidence</div>
             <h2 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.05] text-ink">
               Wood kitchen vs.
-              <em className="not-italic text-smoke"> stone </em>
+              <em className="not-italic text-smoke"> Stone </em>
               kitchen.
             </h2>
           </div>
@@ -354,7 +351,8 @@ export default function HomePage() {
             <p className="mt-8 text-bone/65 leading-relaxed max-w-xl">
               If anything ever happens to your Magppie kitchen, termites, water
               damage, discolouration, structural failure, it is entirely our
-              responsibility. No asterisks, no exclusions, no fine print.
+              responsibility. We make no excuses. We need no explanations from
+              your side.
             </p>
 
             <ul className="mt-10 space-y-4">
@@ -433,7 +431,7 @@ export default function HomePage() {
               <div className="relative aspect-[4/5] flex items-center justify-center">
                 <div className="text-center px-3">
                   <div className="font-display text-3xl md:text-4xl text-ink/80 leading-none">
-                    100&#8239;+
+                    28,000&#8239;+
                   </div>
                   <div className="kicker text-smoke text-[9px] mt-3">Private clients</div>
                 </div>
@@ -464,13 +462,13 @@ export default function HomePage() {
             I&rsquo;ve encountered in my 20-year career as a kitchen designer.&rdquo;
           </blockquote>
           <div className="mt-12 flex items-center justify-center gap-5">
-            <div className="relative w-16 h-16 rounded-full overflow-hidden bg-bone border hairline">
+            <div className="relative w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden bg-bone border hairline flex-shrink-0">
               <Image
                 src="/testimonials/stacy_mccarthy.webp"
                 alt="Stacy McCarthy"
                 fill
-                quality={92}
-                sizes="128px"
+                quality={95}
+                sizes="224px"
                 className="object-cover object-top"
               />
             </div>
@@ -479,7 +477,7 @@ export default function HomePage() {
                 Stacy McCarthy
               </div>
               <div className="text-[11px] tracking-[0.18em] uppercase text-smoke mt-1">
-                Certified Master Kitchen &amp; Bath Designer · KBIS 2026 Presenter
+                Certified Master Kitchen &amp; Bath Designer · Florida, USA
               </div>
             </div>
           </div>
@@ -657,16 +655,16 @@ export default function HomePage() {
 
 const PROOF_ITEMS = [
   { head: 'KBIS 2026',        sub: 'Most Unexpected Innovation' },
-  { head: 'Red Dot × 5',      sub: 'Best of the Best · Germany' },
-  { head: '20+ Countries',    sub: 'Present worldwide' },
+  { head: 'Red Dot Winner',   sub: '4 times in a row' },
+  { head: 'India & USA',      sub: 'Going global' },
   { head: '25 Years',         sub: 'Unconditional guarantee' },
-  { head: 'Since 1976',       sub: '5 decades of craft' }
+  { head: 'Since 2006',       sub: '2 decades of craft' }
 ];
 
 const CONCERNS = [
   {
     title: 'Formaldehyde emissions',
-    body: 'Compressed wood, MDF, plywood, particle board, continuously off-gases formaldehyde, classified by the WHO as a Group 1 carcinogen. This happens silently, every day, in the room where your family cooks and breathes.',
+    body: 'Compressed wood, MDF, plywood, particle board, continuously off-gases formaldehyde, classified by the World Health Organisation as a Group 1 carcinogen. This happens silently, every day, in the room where your family cooks and breathes.',
     bad: 'Released daily',
     good: 'Zero emissions',
     image: '/images/00.jpg'
@@ -676,7 +674,7 @@ const CONCERNS = [
     body: 'Wood is porous. It absorbs steam and moisture from every meal. Over 2–3 years, mould begins growing inside cabinets, invisible to the eye, releasing spores into the air your family breathes.',
     bad: 'Absorbs moisture',
     good: 'Zero absorption',
-    image: '/images/Hailuo_Image_upscale-it-8k-quality-render-u_489889040277979143.jpg'
+    image: '/images/concept-moisture.jpg'
   },
   {
     title: 'Termites & decay',
@@ -689,19 +687,20 @@ const CONCERNS = [
 
 const PRODUCTS = [
   {
-    title: 'Kitchens',
+    title: 'Wellness Kitchen',
     kicker: 'Wellness 01',
-    image: '/images/22.jpg',
-    copy: 'Every cabinet, fascia and handle, in patented Silverstone™.'
+    image: '/images/33.jpg',
+    pos: '35% center',
+    copy: 'Every cabinet, door, countertop, backsplash and door accessories, all in patented Silverstone™.'
   },
   {
-    title: 'Wardrobes',
+    title: 'Wellness Wardrobes',
     kicker: 'Wellness 02',
     image: '/images/wardrobes/concept-1.webp',
     copy: 'Zero-formaldehyde wardrobes, safer for skin and clothes.'
   },
   {
-    title: 'Vanities',
+    title: 'Wellness Vanities',
     kicker: 'Wellness 03',
     image: '/images/vanities/onyx-gold-overmount.webp',
     copy: 'Mould-proof, water-proof. Built for the most humid room.'
@@ -709,17 +708,17 @@ const PRODUCTS = [
 ];
 
 const PROPERTIES = [
-  { sym: 'Ag',  title: 'Silver-nano antibacterial, permanent', copy: 'Silver ions stop bacteria from settling or reproducing. Built into the stone itself, cannot wash or wear away.' },
+  { sym: 'Ag',  title: 'What is Silverstone?', copy: 'Silverstone is a material made by infusing silver and copper inside. It is built into the stone itself, it cannot be washed or wear away.' },
   { sym: 'H₂O', title: '100% waterproof, zero absorption',       copy: 'Silverstone™ absorbs zero moisture. No swelling, no mould, no weakening. Verified by 30-day immersion.' },
-  { sym: '°C',  title: 'Fire resistant, non-combustible',         copy: 'Stone does not burn or spread flame. The safest surface to live around daily cooking heat.' },
-  { sym: 'Ø',   title: 'Zero formaldehyde, zero toxins',           copy: 'Stone releases nothing. No off-gassing, no VOCs, no carcinogens. Ever.' },
+  { sym: '°C',  title: 'Fire resistant, non-combustible',         copy: 'Silverstone does not burn or spread flame. The safest surface to live around daily cooking heat.' },
+  { sym: 'Ø',   title: 'Zero formaldehyde, zero toxins',           copy: 'Silverstone releases nothing. No off-gassing, no VOCs, no carcinogens. Ever.' },
   { sym: '∞',   title: '100% sustainable, zero deforestation',    copy: 'No trees felled, no chemical laminates. A kitchen that is genuinely good for the planet.' }
 ];
 
 const PROOFS = [
   { name: 'Stain safe',     copy: 'Coffee, haldi, oil, wipe clean every time. Non-porous stone absorbs nothing.' },
   { name: 'Scratch safe',   copy: 'Daily knife work, chopping, scratch-resistant Silverstone™ leaves zero marks.' },
-  { name: '60 kg load',     copy: 'Each drawer holds 60 kg without bending or losing structural integrity.' },
+  { name: '80 kg load',     copy: 'Each drawer holds 80 kg without bending or losing structural integrity.' },
   { name: 'Fire safe',      copy: 'Stone does not combust or spread flame. Safe around daily open-flame cooking.' },
   { name: 'Water safe',     copy: '30-day water immersion: wood swelled and collapsed. Stone: zero change.' },
   { name: 'Impact safe',    copy: 'Heavy ceramic jar dropped on surface. Stone intact. Built for real kitchen life.' },
@@ -739,9 +738,7 @@ const COMPARE_ROWS = [
 const GUARANTEE_ITEMS = [
   '25-year unconditional stone guarantee, all damage covered',
   '25 complimentary annual home visits, deep clean & inspection',
-  '10-year guarantee on hardware and accessories',
-  '2-year warranty on all patented lighting',
-  'The strongest guarantee in the kitchen industry, globally'
+  'The strongest commitment in the kitchen industry, globally'
 ];
 
 const GUARANTEE_CARDS = [
@@ -751,11 +748,7 @@ const GUARANTEE_CARDS = [
   },
   {
     title: 'Annual home visits, 25 years included',
-    copy: 'Every year for a quarter-century, our team visits your home: deep clean, alignment check, full inspection. Always looks and feels brand new.'
-  },
-  {
-    title: 'Hardware, accessories & lighting',
-    copy: '10-year guarantee on every mechanism. 2-year warranty on all lighting. Every component, every detail, covered.'
+    copy: 'Every year for 25 years, our team visits your home: they clean, they do alignment check, full inspection. Your kitchen always looks and feels brand new.'
   }
 ];
 
@@ -774,16 +767,15 @@ const CELEBRITIES = [
 ];
 
 const AWARDS = [
-  'KBIS 2026, Most Unexpected Innovation · Orlando',
+  'Most Unexpected Innovation Award, KBIS 2026 · Orlando',
   'Red Dot Award 2007',
   'Red Dot Award 2008',
   'Red Dot Award 2009',
   'Red Dot Best of the Best 2010',
-  'Red Dot Award 2011',
-  'iF International Design Award, Germany',
+  'iF International Design Award 2010, Germany',
   'EDIDA India, Best Kitchen 2013',
   'Quality Excellence Award, Paris',
-  'MOMA Collection, San Francisco',
+  'MOMA Museum, San Francisco',
   'MCHI CREDAI Preferred Partner 2016',
   'TISE 2026, Las Vegas',
   'Home Show 2026, Miami'
@@ -818,7 +810,7 @@ const FINAL_BULLETS = [
   '100% free consultation, zero cost, zero pressure',
   'Custom 3D design presentation for your exact space',
   'Transparent pricing with no hidden charges',
-  'Starting from ₹8,400 per sq. ft. · USD 200 per sq. ft.',
+  'Starting from ₹8,400 per sq. ft.',
   '25-year unconditional guarantee from day one',
   'Trusted by Mukesh Ambani, MS Dhoni and many more',
   'KBIS 2026 Most Unexpected Innovation winner'

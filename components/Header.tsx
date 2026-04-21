@@ -71,7 +71,7 @@ export default function Header() {
                 </span>
                 <span className="w-px h-3 bg-ink/15" />
                 <span className="text-[10px] tracking-[0.2em] uppercase text-smoke">
-                  Red Dot × 5
+                  Red Dot × 4
                 </span>
                 <span className="w-px h-3 bg-ink/15" />
                 <span className="text-[10px] tracking-[0.2em] uppercase text-smoke">

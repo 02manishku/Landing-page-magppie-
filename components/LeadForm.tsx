@@ -208,20 +208,18 @@ const LOCATIONS = [
   'Chandigarh',
   'Jaipur',
   'Kochi',
-  'Other, India',
-  'Florida, USA',
-  'Texas, USA',
-  'Other, USA',
-  'Other, International'
+  'Lucknow',
+  'Surat',
+  'Goa',
+  'Other (India)'
 ];
 
 const BUDGETS = [
   '₹11 – 15 Lakhs',
   '₹16 – 25 Lakhs',
   '₹25 – 30 Lakhs',
-  'Above ₹30 Lakhs',
-  'USD 20K – 50K',
-  'USD 50K+'
+  '₹30 – 50 Lakhs',
+  'Above ₹50 Lakhs'
 ];
 
 const TIMELINES = [
