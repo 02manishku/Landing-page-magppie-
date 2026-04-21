@@ -58,16 +58,22 @@ export async function POST(req: NextRequest) {
     const state = STATE_MAP[location] ?? '';
     const city = location;
 
-    const zoho_data = {
+    // Only include fields that have real values. Empty strings on picklists
+    // are a common cause of Zoho 400 ("Invalid picklist value").
+    const zoho_data: Record<string, string> = {
       Last_Name: name,
-      Est_Budget: normalisePicklist(budget),
-      How_Soon_Do_You_Require_Magppie: normalisePicklist(timeline),
       Email: email,
       Mobile: phone,
-      State1: state,
-      City: city,
-      Lead_Source: 'Website- Magppie',
-      Lead_Status: 'Not Contacted Yet',
+      Lead_Source: 'Website- Magppie'
+    };
+    const b = normalisePicklist(budget);
+    if (b) zoho_data.Est_Budget = b;
+    const t = normalisePicklist(timeline);
+    if (t) zoho_data.How_Soon_Do_You_Require_Magppie = t;
+    if (state) zoho_data.State1 = state;
+    if (city) zoho_data.City = city;
+    // UTM params, only if present
+    const utmMap: Record<string, string> = {
       utm_source: String(utm.source ?? ''),
       utm_medium: String(utm.medium ?? ''),
       utm_campaign: String(utm.campaign ?? ''),
@@ -76,6 +82,7 @@ export async function POST(req: NextRequest) {
       utm_keyword: String(utm.keyword ?? ''),
       utm_placement: String(utm.placement ?? '')
     };
+    for (const [k, v] of Object.entries(utmMap)) if (v) zoho_data[k] = v;
 
     // Try JSON first. Some Zoho proxies expect form-encoded — we'll fall back to that if JSON is rejected.
     async function sendJson() {
