@@ -68,25 +68,60 @@ export async function POST(req: NextRequest) {
       utm_placement: String(utm.placement ?? '')
     };
 
-    const response = await fetch(ZOHO_ENDPOINT, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify(zoho_data)
-    });
+    // Try JSON first. Some Zoho proxies expect form-encoded — we'll fall back to that if JSON is rejected.
+    async function sendJson() {
+      return fetch(ZOHO_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(zoho_data)
+      });
+    }
+    async function sendForm() {
+      const form = new URLSearchParams();
+      Object.entries(zoho_data).forEach(([k, v]) => form.append(k, String(v ?? '')));
+      return fetch(ZOHO_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Accept': 'application/json, text/plain, */*'
+        },
+        body: form.toString()
+      });
+    }
+
+    let response = await sendJson();
+    let rawBody = await response.text().catch(() => '');
+
+    // If JSON was rejected with 400/415/422, retry as form-urlencoded.
+    if (!response.ok && [400, 415, 422].includes(response.status)) {
+      const retry = await sendForm();
+      const retryBody = await retry.text().catch(() => '');
+      if (retry.ok) {
+        return NextResponse.json({ ok: true, via: 'form', upstream: retryBody.slice(0, 200) });
+      }
+      response = retry;
+      rawBody = retryBody;
+    }
 
     if (!response.ok) {
-      const text = await response.text().catch(() => '');
-      console.error('[lead] Zoho endpoint failed', response.status, text);
+      console.error('[lead] upstream failed', response.status, rawBody);
       return NextResponse.json(
-        { error: 'We could not submit your enquiry. Please try again or call us directly.' },
+        {
+          error: `We could not submit your enquiry. (Upstream ${response.status})`,
+          debug: {
+            status: response.status,
+            body: rawBody.slice(0, 500),
+            sent: zoho_data
+          }
+        },
         { status: 502 }
       );
     }
 
-    return NextResponse.json({ ok: true });
+    return NextResponse.json({ ok: true, via: 'json', upstream: rawBody.slice(0, 200) });
   } catch (err) {
     console.error('[lead] server error', err);
     return NextResponse.json(
