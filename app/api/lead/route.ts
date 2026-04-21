@@ -63,7 +63,7 @@ export async function POST(req: NextRequest) {
     const zoho_data: Record<string, string> = {
       Last_Name: name,
       Email: email,
-      Mobile: phone,
+      Mobile: `+91${phone}`,
       Lead_Source: 'Website- Magppie'
     };
     const b = normalisePicklist(budget);
