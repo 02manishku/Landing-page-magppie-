@@ -24,6 +24,15 @@ const STATE_MAP: Record<string, string> = {
 
 const ZOHO_ENDPOINT = 'https://api.magppie.com/api/leads/';
 
+// Normalise picklist values to plain ASCII so Zoho's exact-match check passes.
+function normalisePicklist(s: string) {
+  return s
+    .replace(/₹/g, '')        // drop rupee symbol
+    .replace(/[\u2013\u2014]/g, '-') // en/em dash -> hyphen
+    .replace(/\s+/g, ' ')     // collapse whitespace
+    .trim();
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -51,8 +60,8 @@ export async function POST(req: NextRequest) {
 
     const zoho_data = {
       Last_Name: name,
-      Est_Budget: budget,
-      How_Soon_Do_You_Require_Magppie: timeline,
+      Est_Budget: normalisePicklist(budget),
+      How_Soon_Do_You_Require_Magppie: normalisePicklist(timeline),
       Email: email,
       Mobile: phone,
       State1: state,
