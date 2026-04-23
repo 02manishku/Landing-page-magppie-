@@ -39,8 +39,8 @@ export default function HeroVideo() {
       {/* content grid */}
       <div className="relative z-10 min-h-[100dvh] flex items-center">
         <div className="mx-auto max-w-[1600px] w-full px-5 sm:px-6 lg:px-10 pt-24 pb-14 md:pt-28 md:pb-20 lg:pt-32 lg:pb-24 grid lg:grid-cols-12 gap-8 lg:gap-16 items-center">
-          {/* LEFT on desktop / BELOW form on mobile — copy */}
-          <div className="lg:col-span-7 max-w-[640px] order-2 lg:order-1">
+          {/* LEFT on desktop / ABOVE form on mobile — copy */}
+          <div className="lg:col-span-7 max-w-[640px]">
             <div className="kicker text-bone/80 mb-4 lg:mb-5 fade-up text-[10px] md:text-[11px]">
               Introducing the World&rsquo;s First Wellness Kitchen
             </div>
@@ -77,8 +77,8 @@ export default function HeroVideo() {
             </div>
           </div>
 
-          {/* RIGHT on desktop / FIRST on mobile — lead-capture card */}
-          <div id="lead-form" className="lg:col-span-5 fade-up delay-2 w-full scroll-mt-24 md:scroll-mt-28 order-1 lg:order-2">
+          {/* RIGHT on desktop / BELOW copy on mobile — lead-capture card */}
+          <div id="lead-form" className="lg:col-span-5 fade-up delay-2 w-full scroll-mt-24 md:scroll-mt-28">
             <div className="bg-bone border hairline shadow-[0_20px_60px_rgba(0,0,0,0.3)]">
               <div className="px-5 sm:px-7 lg:px-9 pt-7 md:pt-8 pb-3">
                 <div className="kicker text-smoke mb-3">Private Enquiry</div>
