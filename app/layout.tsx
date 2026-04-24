@@ -4,6 +4,7 @@ import { Inter, Cormorant_Garamond } from 'next/font/google';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import TopBar from '@/components/TopBar';
+import UTMCapture from '@/components/UTMCapture';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -40,6 +41,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${display.variable}`}>
       <body>
+        <UTMCapture />
         <TopBar />
         <Header />
         <main>{children}</main>

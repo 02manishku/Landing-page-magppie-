@@ -636,7 +636,6 @@ export default function HomePage() {
           <div className="lg:col-span-6">
             <div className="bg-bone text-ink">
               <div className="px-8 lg:px-10 pt-9 pb-3">
-                <div className="kicker text-smoke mb-3">Private Enquiry</div>
                 <h3 className="font-display text-3xl lg:text-[2.1rem] text-ink leading-[1.1]">
                   Book a Free<br />
                   Consultation.

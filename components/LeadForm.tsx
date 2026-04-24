@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { getAllUTMs } from '@/lib/utm';
 
 type Variant = 'hero' | 'dark' | 'light';
 
@@ -24,12 +25,11 @@ export default function LeadForm({
     const form = e.currentTarget;
     const data = new FormData(form);
 
-    // Pull UTM params from the URL (browser-only, safe inside 'use client').
-    const params =
-      typeof window !== 'undefined'
-        ? new URLSearchParams(window.location.search)
-        : new URLSearchParams();
-
+    // UTMs are captured into sessionStorage on page load by
+    // <UTMCapture /> (mounted in app/layout.tsx) so they survive any
+    // in-page navigation / anchor scroll before submit. Keys match
+    // Zoho's Lead-module API names exactly (including capital C in
+    // `utm_Campaignid`). Missing values come back as '' — never 'NA'.
     const payload = {
       name: String(data.get('name') ?? '').trim(),
       phone: String(data.get('phone') ?? '').replace(/\D/g, ''),
@@ -37,15 +37,7 @@ export default function LeadForm({
       location: String(data.get('location') ?? ''),
       budget: String(data.get('budget') ?? ''),
       timeline: String(data.get('timeline') ?? ''),
-      utm: {
-        source: params.get('utm_source') ?? '',
-        medium: params.get('utm_medium') ?? '',
-        campaign: params.get('utm_campaign') ?? '',
-        campaignid: params.get('utm_campaignid') ?? '',
-        adgroupid: params.get('utm_adgroupid') ?? '',
-        keyword: params.get('utm_keyword') ?? '',
-        placement: params.get('utm_placement') ?? ''
-      }
+      utm: getAllUTMs()
     };
 
     setSubmitting(true);
@@ -171,8 +163,8 @@ export default function LeadForm({
       </button>
 
       <p className={`text-[11px] leading-relaxed ${helperBase} pt-1`}>
-        A private 20-minute call. No obligation. A Magppie advisor will present
-        a detailed 3D design and transparent pricing within 24 hours.
+        A private 20-minute call. No obligation. A Magppie advisor will be
+        in touch within 24 hours to understand your space and requirements.
       </p>
     </form>
   );

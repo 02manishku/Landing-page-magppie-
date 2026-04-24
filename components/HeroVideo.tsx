@@ -81,15 +81,10 @@ export default function HeroVideo() {
           <div id="lead-form" className="lg:col-span-5 fade-up delay-2 w-full scroll-mt-24 md:scroll-mt-28">
             <div className="bg-bone border hairline shadow-[0_20px_60px_rgba(0,0,0,0.3)]">
               <div className="px-5 sm:px-7 lg:px-9 pt-7 md:pt-8 pb-3">
-                <div className="kicker text-smoke mb-3">Private Enquiry</div>
                 <h2 className="font-display text-ink text-[26px] sm:text-3xl lg:text-[2.1rem] leading-[1.1]">
                   Book a Free<br />
                   Consultation.
                 </h2>
-                <p className="mt-3 text-[13px] md:text-sm text-ink/60 leading-relaxed">
-                  Share a few details. A Magppie advisor will respond within
-                  24 hours with a 3D design and transparent pricing. No obligation.
-                </p>
               </div>
               <div className="px-5 sm:px-7 lg:px-9 pb-7 md:pb-8">
                 <LeadForm variant="light" compact submitLabel="Book my consultation" />
