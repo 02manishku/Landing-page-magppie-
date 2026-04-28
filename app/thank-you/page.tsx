@@ -14,7 +14,7 @@ import type { Metadata } from 'next';
  *    search results.
  */
 export const metadata: Metadata = {
-  title: 'Thank you — Magppie',
+  title: 'Thank you | Magppie',
   description:
     'We’ve received your enquiry. A Magppie advisor will be in touch within 24 hours.',
   robots: { index: false, follow: false }
