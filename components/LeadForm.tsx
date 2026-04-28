@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { getAllUTMs } from '@/lib/utm';
 
 type Variant = 'hero' | 'dark' | 'light';
@@ -14,7 +15,7 @@ export default function LeadForm({
   submitLabel?: string;
   compact?: boolean;
 }) {
-  const [sent, setSent] = useState(false);
+  const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -55,14 +56,17 @@ export default function LeadForm({
         throw new Error(body.error || 'Submission failed. Please try again.');
       }
 
-      setSent(true);
+      // Success — navigate to the dedicated thank-you page. That URL
+      // becomes the conversion signal for Google Ads / Meta Pixel
+      // (PageView fires fresh on /thank-you), and a future Lead
+      // conversion event would be hooked there too.
+      router.push('/thank-you');
     } catch (err) {
       const msg =
         err instanceof Error
           ? err.message
           : 'Something went wrong. Please try again.';
       setError(msg);
-    } finally {
       setSubmitting(false);
     }
   }
@@ -76,24 +80,6 @@ export default function LeadForm({
   const submitBase = isDark
     ? 'w-full mt-2 px-8 py-4 bg-bone text-ink kicker hover:bg-sand transition-colors'
     : 'w-full mt-2 px-8 py-4 bg-ink text-bone kicker hover:bg-smoke transition-colors';
-
-  if (sent) {
-    return (
-      <div className={compact ? 'py-8 text-center' : 'py-12 text-center'}>
-        <div className={`kicker mb-4 ${isDark ? 'text-bone/60' : 'text-smoke'}`}>
-          Thank you
-        </div>
-        <h3
-          className={`font-display leading-tight ${
-            compact ? 'text-2xl' : 'text-3xl'
-          } ${isDark ? 'text-bone' : 'text-ink'}`}
-        >
-          We&rsquo;ve received your details.<br />
-          A Magppie advisor will be in touch within 24 hours.
-        </h3>
-      </div>
-    );
-  }
 
   return (
     <form onSubmit={onSubmit} className={compact ? 'space-y-4' : 'space-y-5'}>

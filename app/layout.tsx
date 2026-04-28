@@ -5,6 +5,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import TopBar from '@/components/TopBar';
 import UTMCapture from '@/components/UTMCapture';
+import Analytics from '@/components/Analytics';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -41,6 +42,21 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${display.variable}`}>
       <body>
+        {/* Marketing pixels — Google Ads + Meta. PageView only. */}
+        <Analytics />
+        {/* Meta Pixel <noscript> fallback for JS-disabled browsers.
+            Lives directly in the layout body so it ships in the
+            initial server-rendered HTML. */}
+        <noscript>
+          <img
+            height="1"
+            width="1"
+            style={{ display: 'none' }}
+            src="https://www.facebook.com/tr?id=489653841564084&ev=PageView&noscript=1"
+            alt=""
+          />
+        </noscript>
+
         <UTMCapture />
         <TopBar />
         <Header />

@@ -238,6 +238,59 @@ export async function POST(req: NextRequest) {
 
     const zohoJson = await res.json().catch(() => null);
 
+    /* Zoho response shape: { data: [ { status, code, details, message } ] }
+       Even on a 400, the body still contains a structured `data[0]` we
+       need to inspect — duplicate detection arrives as 400 with a
+       payload pointing at the existing lead's id. */
+    type ZohoDup = {
+      api_name?: string;
+      duplicate_record?: { id?: string };
+    };
+    type ZohoErrEntry = {
+      code?: string;
+      details?: ZohoDup;
+    };
+    type ZohoFirst = {
+      status?: string;
+      code?: string;
+      message?: string;
+      details?: { id?: string; errors?: ZohoErrEntry[] };
+    };
+    const first = (zohoJson as { data?: ZohoFirst[] } | null)?.data?.[0];
+
+    /* Duplicate detection — from the visitor's perspective this is a
+       success, not an error. Their info is already on file in Zoho.
+       We deliberately do NOT update the existing record here so first-
+       touch UTM attribution is preserved. The form proceeds to
+       /thank-you as if it were a fresh submission.
+
+       Two response shapes to handle:
+       1. `code: 'DUPLICATE_DATA'` directly on first — single field
+          (e.g. only the email matched).
+       2. `code: 'MULTIPLE_OR_MULTI_ERRORS'` with `details.errors[]`
+          where each entry is itself a DUPLICATE_DATA — happens when
+          multiple uniqueness rules trip at once (email AND mobile).
+          We accept this as duplicate as long as EVERY nested error is
+          a duplicate; mixing in other error types should still 502. */
+    const isDirectDup = first?.code === 'DUPLICATE_DATA';
+    const nestedErrors = first?.details?.errors;
+    const isWrappedDup =
+      first?.code === 'MULTIPLE_OR_MULTI_ERRORS' &&
+      Array.isArray(nestedErrors) &&
+      nestedErrors.length > 0 &&
+      nestedErrors.every((e) => e.code === 'DUPLICATE_DATA');
+
+    if (isDirectDup || isWrappedDup) {
+      const existingId =
+        first?.details?.id ??
+        nestedErrors?.[0]?.details?.duplicate_record?.id;
+      return NextResponse.json({
+        ok: true,
+        duplicate: true,
+        id: existingId
+      });
+    }
+
     if (!res.ok) {
       console.error('[lead] Zoho REST rejected', res.status, zohoJson);
       return NextResponse.json(
@@ -248,9 +301,6 @@ export async function POST(req: NextRequest) {
         { status: 502 }
       );
     }
-
-    /* Zoho response shape: { data: [ { status, code, details, message } ] } */
-    const first = (zohoJson as { data?: Array<{ status?: string; code?: string; message?: string; details?: { id?: string } }> } | null)?.data?.[0];
 
     if (first?.status !== 'success') {
       console.error('[lead] Zoho REST non-success', first);
