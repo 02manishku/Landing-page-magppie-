@@ -34,8 +34,12 @@ export default function Header() {
       }`}
     >
       <div className="mx-auto max-w-[1600px] px-6 lg:px-10">
-        <div className="flex items-center justify-between h-16 lg:h-20">
-          <Link href="#top" className="flex items-center" aria-label="Magppie home">
+        <div className="grid grid-cols-[1fr_auto_1fr] items-center h-16 lg:h-20 gap-4">
+          <Link
+            href="#top"
+            className="col-start-1 justify-self-start flex items-center"
+            aria-label="Magppie home"
+          >
             <Image
               src={onLight ? '/logos/magppie-black.png' : '/logos/magppie-white.svg'}
               alt="Magppie"
@@ -48,12 +52,12 @@ export default function Header() {
             />
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-9">
+          <nav className="col-start-2 justify-self-center hidden lg:flex items-center gap-6 xl:gap-9">
             {NAV.map((item) => (
               <Link
                 key={item.label}
                 href={item.href}
-                className={`kicker hover-underline transition-colors ${
+                className={`kicker hover-underline whitespace-nowrap transition-colors ${
                   onLight ? 'text-ink' : 'text-bone drop-shadow-sm'
                 }`}
               >
@@ -62,26 +66,10 @@ export default function Header() {
             ))}
           </nav>
 
-          <div className="hidden lg:flex items-center gap-5">
-            {/* trust pills, only visible after scroll on light bar */}
-            {onLight && (
-              <div className="hidden xl:flex items-center gap-4 mr-2">
-                <span className="text-[10px] tracking-[0.2em] uppercase text-smoke">
-                  KBIS 2026
-                </span>
-                <span className="w-px h-3 bg-ink/15" />
-                <span className="text-[10px] tracking-[0.2em] uppercase text-smoke">
-                  Red Dot × 4
-                </span>
-                <span className="w-px h-3 bg-ink/15" />
-                <span className="text-[10px] tracking-[0.2em] uppercase text-smoke">
-                  25-Yr Guarantee
-                </span>
-              </div>
-            )}
+          <div className="col-start-3 justify-self-end hidden lg:flex items-center">
             <Link
               href="#lead-form"
-              className={`kicker px-5 py-3 transition-colors ${
+              className={`kicker whitespace-nowrap px-5 py-3 transition-colors ${
                 onLight
                   ? 'bg-ink text-bone hover:bg-smoke'
                   : 'bg-bone text-ink hover:bg-sand'
@@ -91,10 +79,10 @@ export default function Header() {
             </Link>
           </div>
 
-          <div className="lg:hidden flex items-center gap-3">
+          <div className="col-start-3 justify-self-end lg:hidden flex items-center gap-3">
             <Link
               href="#lead-form"
-              className={`kicker text-[10px] tracking-[0.2em] px-3.5 py-2.5 transition-colors ${
+              className={`kicker whitespace-nowrap text-[10px] tracking-[0.2em] px-3.5 py-2.5 transition-colors ${
                 onLight
                   ? 'bg-ink text-bone hover:bg-smoke'
                   : 'bg-bone text-ink hover:bg-sand'
